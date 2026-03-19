@@ -1,0 +1,34 @@
+name: Fetch digest data
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # 6:00 UTC = 9:00 Kyiv
+  workflow_dispatch:
+
+jobs:
+  fetch-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download digest file from Google Drive
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          curl -L "https://docs.google.com/spreadsheets/d/1J5k5Xcakzr1t6_ceR_Qcd0AYz6wfecQf/export?format=xlsx" \
+            -o "public/data/digest_combined_${TODAY}.xlsx"
+
+      - name: Update manifest.json
+        run: |
+          TODAY=$(date +%Y-%m-%d)
+          echo "{\"files\":[\"digest_combined_${TODAY}.xlsx\"],\"latest\":\"digest_combined_${TODAY}.xlsx\"}" \
+            > public/data/manifest.json
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add public/data/
+          git diff --staged --quiet || git commit -m "Update digest data $(date +%Y-%m-%d)"
+          git push
