@@ -96,12 +96,13 @@ export function useExcelData() {
   useEffect(() => {
     async function autoLoad() {
       try {
-        const res = await fetch('/data/manifest.json');
+        const base = process.env.PUBLIC_URL || '';
+        const res = await fetch(`${base}/data/manifest.json`);
         if (!res.ok) throw new Error('no manifest');
         const manifest = await res.json();
         const latest = manifest.latest || (manifest.files && manifest.files[manifest.files.length - 1]);
         if (latest) {
-          await loadFromUrl(`/data/${latest}`);
+          await loadFromUrl(`${base}/data/${latest}`);
           return;
         }
       } catch {

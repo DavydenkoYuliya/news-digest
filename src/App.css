@@ -450,7 +450,7 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
 
 /* ─── MOBILE RESPONSIVE ─── */
 @media (max-width: 768px) {
-  .app { max-width: 100%; }
+  .app { max-width: 100%; height: 100dvh; }
   .header { padding: 0 16px; height: 60px; }
   .logo { font-size: 16px; gap: 10px; }
   .logo svg { width: 28px; height: 28px; }
@@ -465,10 +465,13 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
   .drawer-overlay { display: block; }
   .main { flex-direction: column; }
   .sidebar { display: none; }
-  .content { padding: 0 12px 12px; }
-  .section-title { font-size: 12px; gap: 5px; }
+  .content { padding: 0 12px 12px; min-height: 0; }
+  .news-scroll { -webkit-overflow-scrolling: touch; }
+  .section-bar { flex-wrap: wrap; }
+  .section-title { font-size: 12px; gap: 5px; white-space: normal; overflow: visible; flex: 1 1 100%; }
   .current-date { font-size: 10px; padding: 3px 7px; }
   .section-count { font-size: 12px; }
+  .sort-select { flex-shrink: 0; }
   .sort-select { font-size: 11px; padding: 5px 8px; }
   /* ── Card layout: fixed left col + flexible right on mobile ── */
   .news-row { padding: 8px 10px; gap: 8px; align-items: flex-start; }
