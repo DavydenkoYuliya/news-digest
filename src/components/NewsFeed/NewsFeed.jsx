@@ -3,7 +3,7 @@ import { NewsCard } from './NewsCard';
 import { getDateBoundaries, formatDateShort, formatDateLong } from '../../utils/dateUtils';
 
 export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onToggleSave }) {
-  const [prevOpen, setPrevOpen] = useState({ d1: false, d2: false });
+  const [prevOpen, setPrevOpen] = useState({ d1: true, d2: true });
 
   if (loading) {
     return (
