@@ -56,7 +56,11 @@ export function useFilters(news) {
       result = result.filter(n =>
         n.title.toLowerCase().includes(q) ||
         n.summary.toLowerCase().includes(q) ||
-        n.source.toLowerCase().includes(q)
+        n.source.toLowerCase().includes(q) ||
+        n.country.toLowerCase().includes(q) ||
+        n.domain.toLowerCase().includes(q) ||
+        n.category.toLowerCase().includes(q) ||
+        n.commodity.toLowerCase().includes(q)
       );
     }
 

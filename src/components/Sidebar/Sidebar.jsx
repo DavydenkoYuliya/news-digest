@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { capitalize } from '../../utils/constants';
 
 export function Sidebar({ filters, options, setFilter, toggleMulti, reset, totalCount, inDrawer }) {
@@ -78,12 +79,26 @@ export function Sidebar({ filters, options, setFilter, toggleMulti, reset, total
 }
 
 function FilterGroup({ label, options, selected, onToggle, capitalizeVal }) {
+  const [q, setQ] = useState('');
   if (!options || options.length === 0) return null;
+
+  const visible = q.trim()
+    ? options.filter(([val]) => val.toLowerCase().includes(q.toLowerCase()))
+    : options;
+
   return (
     <div className="filter-group">
       <div className="filter-label">{label}</div>
+      {options.length > 5 && (
+        <input
+          className="filter-search"
+          placeholder={`Пошук...`}
+          value={q}
+          onChange={e => setQ(e.target.value)}
+        />
+      )}
       <div className="chk-list">
-        {options.map(([val, cnt]) => (
+        {visible.map(([val, cnt]) => (
           <label key={val} className="chk-item">
             <input
               type="checkbox"
@@ -94,6 +109,9 @@ function FilterGroup({ label, options, selected, onToggle, capitalizeVal }) {
             <span className="chk-count">{cnt}</span>
           </label>
         ))}
+        {visible.length === 0 && (
+          <div className="filter-no-results">Не знайдено</div>
+        )}
       </div>
     </div>
   );
