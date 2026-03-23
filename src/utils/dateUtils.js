@@ -1,28 +1,30 @@
 /**
  * Returns the cutoff boundaries for news sections.
- * "Today" = last 24h from 07:00 of today
- * "Yesterday" = prev 24h
- * "2 days ago" = prev 24h before that
+ * Boundaries are based on 05:00 cutoff times.
+ * If referenceDate is provided (e.g. max date in loaded data), boundaries are
+ * computed relative to it — so the "latest" section always matches the digest.
+ * If omitted, uses current time.
  */
-export function getDateBoundaries() {
-  const now = new Date();
-  const todayMorning = new Date(now);
-  todayMorning.setHours(7, 0, 0, 0);
+export function getDateBoundaries(referenceDate) {
+  const ref = referenceDate || new Date();
 
-  // If current time < 07:00, "today morning" is yesterday's 07:00
-  if (now < todayMorning) {
-    todayMorning.setDate(todayMorning.getDate() - 1);
+  // Find the 05:00 cutoff that comes AFTER ref
+  // (= upper bound of the digest window containing ref)
+  const cutoff = new Date(ref);
+  cutoff.setHours(5, 0, 0, 0);
+  if (ref >= cutoff) {
+    cutoff.setDate(cutoff.getDate() + 1);
   }
 
-  const d1 = new Date(todayMorning); d1.setDate(d1.getDate() - 1);
-  const d2 = new Date(todayMorning); d2.setDate(d2.getDate() - 2);
-  const d3 = new Date(todayMorning); d3.setDate(d3.getDate() - 3);
+  const d1 = new Date(cutoff); d1.setDate(d1.getDate() - 1);
+  const d2 = new Date(cutoff); d2.setDate(d2.getDate() - 2);
+  const d3 = new Date(cutoff); d3.setDate(d3.getDate() - 3);
 
   return {
-    todayStart: todayMorning,  // e.g. 18.03 07:00
-    yestStart: d1,             // e.g. 17.03 07:00
-    day2Start: d2,             // e.g. 16.03 07:00
-    day3Start: d3,             // e.g. 15.03 07:00
+    todayStart: cutoff,  // upper bound of latest digest, e.g. 22.03 05:00
+    yestStart: d1,       // e.g. 21.03 05:00
+    day2Start: d2,       // e.g. 20.03 05:00
+    day3Start: d3,       // e.g. 19.03 05:00
   };
 }
 

@@ -14,7 +14,11 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
     );
   }
 
-  const { todayStart, yestStart, day2Start, day3Start } = getDateBoundaries();
+  // Base boundaries on the latest date in the data so sections always match the digest
+  const maxDate = news.length
+    ? news.reduce((max, n) => (n.date && n.date > max ? n.date : max), new Date(0))
+    : null;
+  const { todayStart, yestStart, day2Start, day3Start } = getDateBoundaries(maxDate || undefined);
 
   // Partition news into sections
   const todayNews = [];
@@ -24,19 +28,19 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
   news.forEach(n => {
     if (!n.date) { todayNews.push(n); return; }
     const t = n.date.getTime();
-    if (t >= todayStart.getTime()) {
+    if (t >= yestStart.getTime() && t < todayStart.getTime()) {
       todayNews.push(n);
-    } else if (t >= yestStart.getTime()) {
+    } else if (t >= day2Start.getTime() && t < yestStart.getTime()) {
       yestNews.push(n);
-    } else if (t >= day2Start.getTime()) {
+    } else if (t >= day3Start.getTime() && t < day2Start.getTime()) {
       day2News.push(n);
     }
   });
 
-  const todayLabel = formatDateLong(new Date());
-  const todayRange = `${formatDateShort(todayStart)} - ${formatDateShort(yestStart)}`;
-  const yestRange = `${formatDateShort(yestStart)} - ${formatDateShort(day2Start)}`;
-  const day2Range = `${formatDateShort(day2Start)} - ${formatDateShort(day3Start)}`;
+  const todayLabel = formatDateLong(todayStart);
+  const todayRange = `${formatDateShort(yestStart)} — ${formatDateShort(todayStart)} до 05:00`;
+  const yestRange = `${formatDateShort(day2Start)} — ${formatDateShort(yestStart)} до 05:00`;
+  const day2Range = `${formatDateShort(day3Start)} — ${formatDateShort(day2Start)} до 05:00`;
 
   return (
     <>
