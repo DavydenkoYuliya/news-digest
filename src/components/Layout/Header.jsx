@@ -40,6 +40,12 @@ export function Header({ activeTab, setActiveTab, bookmarkCount, user, onExport,
             <span className="bookmark-count-badge">{bookmarkCount}</span>
           )}
         </button>
+        <button
+          className={`nav-tab ${activeTab === 'analytics' ? 'active' : ''}`}
+          onClick={() => setActiveTab('analytics')}
+        >
+          AI-Аналітика
+        </button>
       </div>
 
       <div className="header-right">

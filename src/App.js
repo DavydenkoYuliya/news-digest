@@ -6,6 +6,7 @@ import { Header } from './components/Layout/Header';
 import { Sidebar } from './components/Sidebar/Sidebar';
 import { NewsFeed } from './components/NewsFeed/NewsFeed';
 import { BookmarksPage } from './components/Bookmarks/BookmarksPage';
+import { AnalyticsPage } from './components/Analytics/AnalyticsPage';
 import { Toast, showToast } from './components/UI/Toast';
 import { Modal } from './components/UI/Modal';
 
@@ -93,7 +94,7 @@ function App() {
       <div className="main">
         {activeTab === 'news' && <Sidebar {...sidebarProps} />}
 
-        {activeTab === 'news' ? (
+        {activeTab === 'news' && (
           <div className="content">
             <NewsFeed
               news={filtered}
@@ -104,12 +105,16 @@ function App() {
               onToggleSave={handleToggleSave}
             />
           </div>
-        ) : (
+        )}
+        {activeTab === 'bookmarks' && (
           <BookmarksPage
             bookmarkList={bookmarkList}
             isBookmarked={isBookmarked}
             onToggleSave={handleToggleSave}
           />
+        )}
+        {activeTab === 'analytics' && (
+          <AnalyticsPage news={news} />
         )}
       </div>
 
