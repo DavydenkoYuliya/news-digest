@@ -5,15 +5,16 @@
  * computed relative to it — so the "latest" section always matches the digest.
  * If omitted, uses current time.
  */
-export function getDateBoundaries(referenceDate) {
-  const ref = referenceDate || new Date();
+export function getDateBoundaries() {
+  const now = new Date();
 
-  // Find the 05:00 cutoff that comes AFTER ref
-  // (= upper bound of the digest window containing ref)
-  const cutoff = new Date(ref);
+  // Use the last 05:00 that has already passed as the upper bound
+  // e.g. on 23.03 at 10:00 → cutoff = 23.03 05:00
+  // e.g. on 23.03 at 03:00 → cutoff = 22.03 05:00 (today's 05:00 hasn't arrived yet)
+  const cutoff = new Date(now);
   cutoff.setHours(5, 0, 0, 0);
-  if (ref >= cutoff) {
-    cutoff.setDate(cutoff.getDate() + 1);
+  if (now < cutoff) {
+    cutoff.setDate(cutoff.getDate() - 1);
   }
 
   const d1 = new Date(cutoff); d1.setDate(d1.getDate() - 1);
@@ -21,10 +22,10 @@ export function getDateBoundaries(referenceDate) {
   const d3 = new Date(cutoff); d3.setDate(d3.getDate() - 3);
 
   return {
-    todayStart: cutoff,  // upper bound of latest digest, e.g. 22.03 05:00
-    yestStart: d1,       // e.g. 21.03 05:00
-    day2Start: d2,       // e.g. 20.03 05:00
-    day3Start: d3,       // e.g. 19.03 05:00
+    todayStart: cutoff,  // e.g. 23.03 05:00
+    yestStart: d1,       // e.g. 22.03 05:00
+    day2Start: d2,       // e.g. 21.03 05:00
+    day3Start: d3,       // e.g. 20.03 05:00
   };
 }
 

@@ -14,11 +14,7 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
     );
   }
 
-  // Base boundaries on the latest date in the data so sections always match the digest
-  const maxDate = news.length
-    ? news.reduce((max, n) => (n.date && n.date > max ? n.date : max), new Date(0))
-    : null;
-  const { todayStart, yestStart, day2Start, day3Start } = getDateBoundaries(maxDate || undefined);
+  const { todayStart, yestStart, day2Start, day3Start } = getDateBoundaries();
 
   // Partition news into sections
   const todayNews = [];
