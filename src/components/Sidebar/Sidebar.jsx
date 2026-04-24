@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { capitalize } from '../../utils/constants';
 
-export function Sidebar({ filters, options, setFilter, toggleMulti, reset, totalCount, inDrawer }) {
+export function Sidebar({ filters, options, setFilter, toggleMulti, setMulti, reset, totalCount, inDrawer }) {
   const { search, minScore, domains, categories, countries, commodities } = filters;
 
   const scorePercent = ((minScore - 1) / 9) * 100;
@@ -50,6 +50,8 @@ export function Sidebar({ filters, options, setFilter, toggleMulti, reset, total
           options={options.domains}
           selected={domains}
           onToggle={v => toggleMulti('domains', v)}
+          onSetAll={vals => setMulti('domains', vals)}
+          onClearAll={() => setMulti('domains', [])}
           capitalizeVal
         />
         <FilterGroup
@@ -57,18 +59,24 @@ export function Sidebar({ filters, options, setFilter, toggleMulti, reset, total
           options={options.categories.filter(([v]) => v !== 'Всі категорії')}
           selected={categories}
           onToggle={v => toggleMulti('categories', v)}
+          onSetAll={vals => setMulti('categories', vals)}
+          onClearAll={() => setMulti('categories', [])}
         />
         <FilterGroup
           label="Країна"
           options={options.countries}
           selected={countries}
           onToggle={v => toggleMulti('countries', v)}
+          onSetAll={vals => setMulti('countries', vals)}
+          onClearAll={() => setMulti('countries', [])}
         />
         <FilterGroup
           label="Сировина"
           options={options.commodities}
           selected={commodities}
           onToggle={v => toggleMulti('commodities', v)}
+          onSetAll={vals => setMulti('commodities', vals)}
+          onClearAll={() => setMulti('commodities', [])}
         />
 
       </div>
@@ -78,7 +86,7 @@ export function Sidebar({ filters, options, setFilter, toggleMulti, reset, total
   return <div className="sidebar">{inner}</div>;
 }
 
-function FilterGroup({ label, options, selected, onToggle, capitalizeVal }) {
+function FilterGroup({ label, options, selected, onToggle, onSetAll, onClearAll, capitalizeVal }) {
   const [q, setQ] = useState('');
   if (!options || options.length === 0) return null;
 
@@ -91,13 +99,23 @@ function FilterGroup({ label, options, selected, onToggle, capitalizeVal }) {
   const anyVisible = visibleVals.some(v => selected.includes(v));
 
   const selectAll = () => {
-    const toAdd = visibleVals.filter(val => !selected.includes(val));
-    toAdd.forEach(val => onToggle(val));
+    if (onSetAll) {
+      onSetAll(visibleVals);
+    } else {
+      visibleVals.forEach(val => {
+        if (!selected.includes(val)) onToggle(val);
+      });
+    }
   };
 
   const clearAll = () => {
-    const toRemove = selected.filter(val => visibleVals.includes(val));
-    toRemove.forEach(val => onToggle(val));
+    if (onClearAll) {
+      onClearAll();
+    } else {
+      selected.forEach(val => {
+        if (visibleVals.includes(val)) onToggle(val);
+      });
+    }
   };
 
   return (

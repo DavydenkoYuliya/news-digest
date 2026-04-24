@@ -37,7 +37,7 @@ function countField(rows, key) {
   return Object.entries(map).sort((a, b) => a[0].localeCompare(b[0], 'uk-UA', { sensitivity: 'base' }));
 }
 
-function AnalyticsFilterGroup({ label, options, selected, onToggle, expanded, onExpand }) {
+function AnalyticsFilterGroup({ label, options, selected, onToggle, onSetAll, onClearAll, expanded, onExpand }) {
   const [q, setQ] = useState('');
   if (!options || options.length === 0) return null;
 
@@ -57,13 +57,15 @@ function AnalyticsFilterGroup({ label, options, selected, onToggle, expanded, on
   };
 
   const selectAll = () => {
-    const toAdd = visibleVals.filter(val => !selected.includes(val));
-    toAdd.forEach(val => onToggle(val));
+    if (onSetAll) {
+      onSetAll(visibleVals);
+    }
   };
 
   const clearAll = () => {
-    const toRemove = selected.filter(val => visibleVals.includes(val));
-    toRemove.forEach(val => onToggle(val));
+    if (onClearAll) {
+      onClearAll();
+    }
   };
 
   return (
@@ -206,6 +208,8 @@ export function AnalyticsPage({ news }) {
             options={options.domains}
             selected={domains}
             onToggle={(v) => toggleFilter(setDomains, domains, v)}
+            onSetAll={(vals) => setDomains(vals)}
+            onClearAll={() => setDomains([])}
             expanded={expandedFilter === 'domains'}
             onExpand={() => setExpandedFilter(expandedFilter === 'domains' ? null : 'domains')}
           />
@@ -214,6 +218,8 @@ export function AnalyticsPage({ news }) {
             options={options.categories}
             selected={categories}
             onToggle={(v) => toggleFilter(setCategories, categories, v)}
+            onSetAll={(vals) => setCategories(vals)}
+            onClearAll={() => setCategories([])}
             expanded={expandedFilter === 'categories'}
             onExpand={() => setExpandedFilter(expandedFilter === 'categories' ? null : 'categories')}
           />
@@ -222,6 +228,8 @@ export function AnalyticsPage({ news }) {
             options={options.commodities}
             selected={commodities}
             onToggle={(v) => toggleFilter(setCommodities, commodities, v)}
+            onSetAll={(vals) => setCommodities(vals)}
+            onClearAll={() => setCommodities([])}
             expanded={expandedFilter === 'commodities'}
             onExpand={() => setExpandedFilter(expandedFilter === 'commodities' ? null : 'commodities')}
           />
@@ -230,6 +238,8 @@ export function AnalyticsPage({ news }) {
             options={options.countries}
             selected={countries}
             onToggle={(v) => toggleFilter(setCountries, countries, v)}
+            onSetAll={(vals) => setCountries(vals)}
+            onClearAll={() => setCountries([])}
             expanded={expandedFilter === 'countries'}
             onExpand={() => setExpandedFilter(expandedFilter === 'countries' ? null : 'countries')}
           />

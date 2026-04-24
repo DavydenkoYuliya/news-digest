@@ -20,7 +20,7 @@ function App() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { news, loading } = useExcelData();
   const { bookmarkList, isBookmarked, toggle } = useBookmarks();
-  const { filters, filtered, options, setFilter, toggleMulti, reset } = useFilters(news);
+  const { filters, filtered, options, setFilter, toggleMulti, setMulti, reset } = useFilters(news);
   const { name, initials, showModal, setShowModal, saveName } = useUser();
 
   const handleExport = () => {
@@ -62,7 +62,7 @@ function App() {
 
   const userProps = { name, initials, openModal: () => setShowModal(true) };
 
-  const sidebarProps = { filters, options, setFilter, toggleMulti, reset, totalCount: filtered.length };
+  const sidebarProps = { filters, options, setFilter, toggleMulti, setMulti, reset, totalCount: filtered.length };
 
   return (
     <div className="app">

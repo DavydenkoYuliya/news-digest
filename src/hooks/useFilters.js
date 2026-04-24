@@ -124,6 +124,9 @@ export function useFilters(news) {
       };
     });
   };
+  const setMulti = (key, values) => {
+    setFilters(f => ({ ...f, [key]: values }));
+  };
 
-  return { filters, filtered, options, setFilter, toggleMulti, reset };
+  return { filters, filtered, options, setFilter, toggleMulti, setMulti, reset };
 }
