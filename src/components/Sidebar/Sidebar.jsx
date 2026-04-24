@@ -86,6 +86,10 @@ function FilterGroup({ label, options, selected, onToggle, capitalizeVal }) {
     ? options.filter(([val]) => val.toLowerCase().includes(q.toLowerCase()))
     : options;
 
+  const sorted = [...visible].sort((a, b) =>
+    a[0].localeCompare(b[0], 'uk-UA')
+  );
+
   return (
     <div className="filter-group">
       <div className="filter-label">{label}</div>
@@ -98,7 +102,7 @@ function FilterGroup({ label, options, selected, onToggle, capitalizeVal }) {
         />
       )}
       <div className="chk-list">
-        {visible.map(([val, cnt]) => (
+        {sorted.map(([val, cnt]) => (
           <label key={val} className="chk-item">
             <input
               type="checkbox"
