@@ -70,7 +70,7 @@ function countField(rows, key) {
     const parts = String(val).split(',').map(s => s.trim()).filter(Boolean);
     parts.forEach(p => { map[p] = (map[p] || 0) + 1; });
   });
-  return Object.entries(map).sort((a, b) => a[0].localeCompare(b[0], 'uk-UA'));
+  return Object.entries(map).sort((a, b) => a[0].localeCompare(b[0], 'uk-UA', { sensitivity: 'base' }));
 }
 
 export function useFilters(news) {
