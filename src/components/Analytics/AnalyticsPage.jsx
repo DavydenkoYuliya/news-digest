@@ -46,11 +46,26 @@ function AnalyticsFilterGroup({ label, options, selected, onToggle, expanded, on
     : options;
 
   const selectedCount = selected.length;
+  const visibleVals = visible.map(([val]) => val);
+  const allVisibleSelected = visibleVals.length > 0 && visibleVals.every(v => selected.includes(v));
+  const anyVisible = visibleVals.some(v => selected.includes(v));
 
   const getBadgeText = () => {
     if (selectedCount === 0) return null;
     if (selectedCount === 1) return selected[0];
     return `Вибрано ${selectedCount}`;
+  };
+
+  const selectAll = () => {
+    visibleVals.forEach(val => {
+      if (!selected.includes(val)) onToggle(val);
+    });
+  };
+
+  const clearAll = () => {
+    selected.forEach(val => {
+      if (visibleVals.includes(val)) onToggle(val);
+    });
   };
 
   return (
@@ -72,6 +87,18 @@ function AnalyticsFilterGroup({ label, options, selected, onToggle, expanded, on
               value={q}
               onChange={(e) => setQ(e.target.value)}
             />
+          )}
+          {visibleVals.length > 0 && (
+            <div className="analytics-filter-actions">
+              <button className="analytics-filter-action-btn" onClick={selectAll}>
+                {allVisibleSelected ? '✓' : '○'} Вибрати все
+              </button>
+              {anyVisible && (
+                <button className="analytics-filter-action-btn" onClick={clearAll}>
+                  ✕ Зняти вибір
+                </button>
+              )}
+            </div>
           )}
           <div className="analytics-chk-list">
             {visible.map(([val, cnt]) => (

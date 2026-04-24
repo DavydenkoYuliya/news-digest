@@ -86,6 +86,22 @@ function FilterGroup({ label, options, selected, onToggle, capitalizeVal }) {
     ? options.filter(([val]) => val.toLowerCase().includes(q.toLowerCase()))
     : options;
 
+  const visibleVals = visible.map(([val]) => val);
+  const allVisibleSelected = visibleVals.length > 0 && visibleVals.every(v => selected.includes(v));
+  const anyVisible = visibleVals.some(v => selected.includes(v));
+
+  const selectAll = () => {
+    visibleVals.forEach(val => {
+      if (!selected.includes(val)) onToggle(val);
+    });
+  };
+
+  const clearAll = () => {
+    selected.forEach(val => {
+      if (visibleVals.includes(val)) onToggle(val);
+    });
+  };
+
   return (
     <div className="filter-group">
       <div className="filter-label">{label}</div>
@@ -96,6 +112,18 @@ function FilterGroup({ label, options, selected, onToggle, capitalizeVal }) {
           value={q}
           onChange={e => setQ(e.target.value)}
         />
+      )}
+      {visibleVals.length > 0 && (
+        <div className="filter-actions">
+          <button className="filter-action-btn" onClick={selectAll}>
+            {allVisibleSelected ? '✓' : '○'} Вибрати все
+          </button>
+          {anyVisible && (
+            <button className="filter-action-btn" onClick={clearAll}>
+              ✕ Зняти вибір
+            </button>
+          )}
+        </div>
       )}
       <div className="chk-list">
         {visible.map(([val, cnt]) => (
