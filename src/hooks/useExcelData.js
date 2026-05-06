@@ -99,12 +99,12 @@ export function useExcelData() {
     async function autoLoad() {
       try {
         const base = process.env.PUBLIC_URL || '';
-        const res = await fetch(`${base}/data/manifest.json`);
+        const res = await fetch(`${base}/data/manifest.json?t=${Date.now()}`, { cache: 'no-store' });
         if (!res.ok) throw new Error('no manifest');
         const manifest = await res.json();
         const latest = manifest.latest || (manifest.files && manifest.files[manifest.files.length - 1]);
         if (latest) {
-          await loadFromUrl(`${base}/data/${latest}`);
+          await loadFromUrl(`${base}/data/${latest}?t=${Date.now()}`);
           return;
         }
       } catch {

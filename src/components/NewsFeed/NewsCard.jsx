@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { getScoreClass, getDomainKey, capitalize, cleanSource, firstCountries } from '../../utils/constants';
 import { formatTime, formatDateShort } from '../../utils/dateUtils';
 
@@ -54,6 +55,7 @@ const InfoIcon = () => (
 );
 
 export function NewsCard({ item, saved, onToggleSave }) {
+  const [showDetailsMob, setShowDetailsMob] = useState(false);
   const domainKey = item.domainKey || getDomainKey(item.domain);
   const icon = DOMAIN_ICONS[domainKey] || DOMAIN_ICONS.geo;
   const scoreClass = getScoreClass(item.score);
@@ -106,18 +108,29 @@ export function NewsCard({ item, saved, onToggleSave }) {
 
       {/* ── RIGHT COLUMN: title + tags + (desktop) score, meta, save ── */}
       <div className="card-right">
-        <a
-          href={item.url || '#'}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="row-title"
-          title={item.summary}
-        >
-          {item.title}
-        </a>
+        <div className="row-title-wrapper">
+          <a
+            href={item.url || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="row-title"
+            title={item.detailed || item.summary}
+          >
+            {item.title}
+          </a>
+          {item.detailed && (
+            <button
+              className="info-btn-mob"
+              onClick={() => setShowDetailsMob(!showDetailsMob)}
+              title="Показати деталі"
+            >
+              ℹ️
+            </button>
+          )}
+        </div>
 
-        {/* Detailed summary shown on mobile */}
-        {item.detailed && (
+        {/* Detailed summary shown on mobile (only when clicked) */}
+        {item.detailed && showDetailsMob && (
           <div className="row-detailed-mob">
             {item.detailed}
           </div>
