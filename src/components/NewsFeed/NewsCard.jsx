@@ -116,6 +116,13 @@ export function NewsCard({ item, saved, onToggleSave }) {
           {item.title}
         </a>
 
+        {/* Detailed summary shown on mobile */}
+        {item.detailed && (
+          <div className="row-detailed-mob">
+            {item.detailed}
+          </div>
+        )}
+
         <div className="row-bottom">
           <div className="row-tags">
             <span className="tag tag-domain">{capitalize(item.domain)}</span>
@@ -140,7 +147,7 @@ export function NewsCard({ item, saved, onToggleSave }) {
             <InfoIcon />
             <div className="tooltip">
               Score {scoreDisplay} — релевантність для бізнесу МХП.
-              {item.summary && <><br/><br/>{item.summary}</>}
+              {item.detailed && <><br/><br/>{item.detailed}</>}
             </div>
           </div>
           {metaBlock}

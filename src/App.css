@@ -238,6 +238,15 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
 }
 .row-title:hover { color: var(--primary); text-decoration: underline; }
 
+.row-detailed-mob {
+  display: none;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.5;
+  margin-top: 6px;
+  width: 100%;
+}
+
 /* ─── TOOLTIPS ─── */
 .tooltip-trigger { position: relative; display: inline-flex; align-items: center; cursor: help; }
 .tooltip {
@@ -551,6 +560,7 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
     -webkit-line-clamp: 5;
     width: 100%;
   }
+  .row-detailed-mob { display: block; }
   .row-tags { flex-wrap: wrap; gap: 3px; }
   .tag { font-size: 10px; padding: 2px 6px; }
   .prev-header { padding: 7px 10px; }
