@@ -221,7 +221,7 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
 .di-finance { background: #EDE9FE; color: #7C3AED; }
 .di-regulatory { background: #E0E7FF; color: #4F46E5; }
 
-.row-title-wrapper { display: flex; align-items: flex-start; gap: 6px; min-width: 0; }
+.row-title-wrapper { display: flex; align-items: flex-start; gap: 0; min-width: 0; }
 .row-title-wrapper .row-title { flex: 1; }
 
 .row-title {
@@ -571,7 +571,7 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
   .domain-icon { width: 28px; height: 28px; border-radius: 7px; }
   .domain-icon svg { width: 14px; height: 14px; }
 
-  .row-title-wrapper { gap: 4px; }
+  .row-title-wrapper { gap: 6px; }
   .row-title {
     font-size: 12.5px;
     -webkit-line-clamp: 5;
