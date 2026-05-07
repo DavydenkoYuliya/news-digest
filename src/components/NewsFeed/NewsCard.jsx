@@ -108,26 +108,24 @@ export function NewsCard({ item, saved, onToggleSave }) {
 
       {/* ── RIGHT COLUMN: title + tags + (desktop) score, meta, save ── */}
       <div className="card-right">
-        <div className="row-title-wrapper">
-          <a
-            href={item.url || '#'}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="row-title"
-            title={item.summary}
+        <a
+          href={item.url || '#'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="row-title"
+          title={item.summary}
+        >
+          {item.title}
+        </a>
+        {item.detailed && (
+          <button
+            className="info-btn-mob"
+            onClick={() => setShowDetailsMob(!showDetailsMob)}
+            title="Показати деталі"
           >
-            {item.title}
-          </a>
-          {item.detailed && (
-            <button
-              className="info-btn-mob"
-              onClick={() => setShowDetailsMob(!showDetailsMob)}
-              title="Показати деталі"
-            >
-              ℹ️
-            </button>
-          )}
-        </div>
+            ℹ️
+          </button>
+        )}
 
         {/* Detailed summary shown on mobile (only when clicked) */}
         {item.detailed && showDetailsMob && (
