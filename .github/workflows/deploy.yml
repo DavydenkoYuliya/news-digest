@@ -6,6 +6,7 @@ on:
     paths:
       - 'public/data/**'
       - 'src/**'
+      - '.github/workflows/deploy.yml'
 
 jobs:
   deploy:
