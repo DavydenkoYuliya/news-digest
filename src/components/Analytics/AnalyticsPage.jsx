@@ -157,7 +157,7 @@ export function AnalyticsPage({ news }) {
   const [expandedFilter, setExpandedFilter] = useState(null);
   const { generate, result, loading, error, clear } = useAnalyticsGeneration();
 
-  const filters = { domains, categories, commodities, countries };
+  const filters = useMemo(() => ({ domains, categories, commodities, countries }), [domains, categories, commodities, countries]);
 
   const options = useMemo(() => {
     const domainList = countField(applyFilters(news, filters, ['domains']),     'domain');
