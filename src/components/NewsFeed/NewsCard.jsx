@@ -114,7 +114,7 @@ export function NewsCard({ item, saved, onToggleSave }) {
             target="_blank"
             rel="noopener noreferrer"
             className="row-title"
-            title={item.detailed || item.summary}
+            title={item.summary}
           >
             {item.title}
           </a>
