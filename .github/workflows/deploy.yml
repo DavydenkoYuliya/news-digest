@@ -3,10 +3,6 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-    paths:
-      - 'public/data/**'
-      - 'src/**'
-      - '.github/workflows/deploy.yml'
 
 jobs:
   deploy:
