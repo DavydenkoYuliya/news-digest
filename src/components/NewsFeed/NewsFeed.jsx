@@ -15,6 +15,7 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
   }
 
   const { todayStart, yestStart, day2Start, day3Start } = getDateBoundaries();
+  const nowMs = Date.now();
 
   // Partition news into sections
   const todayNews = [];
@@ -24,7 +25,7 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
   news.forEach(n => {
     if (!n.date) { todayNews.push(n); return; }
     const t = n.date.getTime();
-    if (t >= yestStart.getTime() && t < todayStart.getTime()) {
+    if (t >= yestStart.getTime() && t <= nowMs) {
       todayNews.push(n);
     } else if (t >= day2Start.getTime() && t < yestStart.getTime()) {
       yestNews.push(n);
