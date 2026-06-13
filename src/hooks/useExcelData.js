@@ -8,7 +8,7 @@ function parseRows(rows) {
     const dateRaw = row['date_published_utc'] || row['Дата'] || row['date'] || '';
     const sourceRaw = String(row['source'] || row['Джерело'] || '').trim();
     const source = cleanSource(sourceRaw) || sourceRaw.slice(0, 30);
-    const titleUk = String(row['title_uk'] || row['Заголовок UA'] || row['title_original'] || row['title'] || '').trim();
+    const titleUk = String(row['AI-резюме'] || row['ai_summary'] || row['Заголовок UA'] || row['title_uk'] || row['title_original'] || row['title'] || '').trim();
     const summaryUk = String(row['ai_summary'] || row['AI-резюме'] || row['summary_uk'] || row['summary'] || '').trim();
     const detailedUk = String(row['ai_detailed'] || row['Деталь'] || '').trim();
     const rssText = String(row['summary_uk'] || row['Опис RSS'] || '').trim();
