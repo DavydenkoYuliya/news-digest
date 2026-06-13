@@ -115,7 +115,7 @@ export function NewsCard({ item, saved, onToggleSave }) {
               target="_blank"
               rel="noopener noreferrer"
               className="row-title"
-              title={item.summary}
+              title={[item.summary, (item.rssText && item.rssText.length > 100 ? item.rssText : item.detailed)].filter(Boolean).join('\n\n')}
             >
               {item.title}
             </a>

@@ -22,7 +22,7 @@ export function parseExcelBuffer(buffer) {
     const country = row['ai_country'] || row['Країна'] || row['country'] || '';
     const commodity = row['ai_commodity'] || row['Сировина'] || row['commodity'] || '';
     const url = row['url'] || row['Посилання'] || row['url_canonical'] || '';
-    const score = parseFloat(row['ai_score'] || row['Score'] || row['signal_level'] === 'high' ? 8 : 5) || 0;
+    const score = parseFloat(row['ai_score'] || row['Score'] || (row['signal_level'] === 'high' ? 8 : 5)) || 0;
 
     let parsedDate = null;
     if (dateRaw instanceof Date) {

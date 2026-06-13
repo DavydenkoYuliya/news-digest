@@ -11,6 +11,7 @@ function parseRows(rows) {
     const titleUk = String(row['title_uk'] || row['Заголовок UA'] || row['title_original'] || row['title'] || '').trim();
     const summaryUk = String(row['ai_summary'] || row['AI-резюме'] || row['summary_uk'] || row['summary'] || '').trim();
     const detailedUk = String(row['ai_detailed'] || row['Деталь'] || '').trim();
+    const rssText = String(row['summary_uk'] || row['Опис RSS'] || '').trim();
     const domain = String(row['ai_domain'] || row['Домен'] || row['domain'] || '').trim();
     const category = String(row['ai_category'] || row['Категорія'] || row['category'] || '').trim();
     const country = String(row['ai_country'] || row['Країна'] || row['country'] || '').trim();
@@ -38,6 +39,7 @@ function parseRows(rows) {
       title: titleUk,
       summary: summaryUk,
       detailed: detailedUk,
+      rssText,
       domain,
       domainKey: getDomainKey(domain),
       category,
