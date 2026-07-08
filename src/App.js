@@ -14,6 +14,7 @@ import { useExcelData } from './hooks/useExcelData';
 import { useBookmarks } from './hooks/useBookmarks';
 import { useFilters } from './hooks/useFilters';
 import { useUser } from './hooks/useUser';
+import { useTracking } from './hooks/useTracking';
 
 function App() {
   const [activeTab, setActiveTab] = useState('news');
@@ -22,6 +23,7 @@ function App() {
   const { bookmarkList, isBookmarked, toggle } = useBookmarks();
   const { filters, filtered, options, setFilter, toggleMulti, setMulti, reset } = useFilters(news);
   const { name, initials, showModal, setShowModal, saveName } = useUser();
+  useTracking(name, activeTab);
 
   const handleExport = () => {
     const rows = filtered.map(n => ({
