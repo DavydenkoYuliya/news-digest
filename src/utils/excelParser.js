@@ -17,6 +17,7 @@ export function parseExcelBuffer(buffer) {
     const source = row['source'] || row['Джерело'] || '';
     const titleUk = row['title_uk'] || row['Заголовок UA'] || row['title'] || '';
     const summaryUk = row['ai_summary'] || row['AI-резюме'] || row['summary'] || '';
+    const detailed = row['ai_detailed'] || row['Деталь'] || row['detailed'] || '';
     const domain = row['ai_domain'] || row['Домен'] || row['domain'] || '';
     const category = row['ai_category'] || row['Категорія'] || row['category'] || '';
     const country = row['ai_country'] || row['Країна'] || row['country'] || '';
@@ -38,6 +39,7 @@ export function parseExcelBuffer(buffer) {
       source: String(source).trim(),
       title: String(titleUk || row['title_original'] || '').trim(),
       summary: String(summaryUk || row['summary_original'] || '').trim(),
+      detailed: String(detailed).trim(),
       domain: String(domain).trim(),
       domainKey: getDK(String(domain).trim()),
       category: String(category).trim(),
