@@ -61,6 +61,17 @@ export function Header({ activeTab, setActiveTab, bookmarkCount, user, onExport,
           </button>
         )}
 
+        <a
+          className="brief-link"
+          href={`${process.env.PUBLIC_URL}/competitor_brief.html`}
+          target="_blank" rel="noopener noreferrer"
+          title="Зведений AI-брифінг по конкурентах за 3 доби"
+          style={{ display: 'inline-flex', alignItems: 'center', gap: '6px',
+            padding: '7px 12px', background: '#2557a7', color: '#fff', borderRadius: '8px',
+            fontSize: '13px', fontWeight: 600, textDecoration: 'none', whiteSpace: 'nowrap' }}
+        >
+          📊 Брифінг конкурентів
+        </a>
         <button className="upload-btn" onClick={onExport} title="Експортувати поточні новини в Excel">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
