@@ -70,7 +70,8 @@ export function Header({ activeTab, setActiveTab, bookmarkCount, user, onExport,
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 20V10M12 20V4M6 20v-6"/>
           </svg>
-          <span>Брифінг конкурентів</span>
+          <span className="full-text">Брифінг конкурентів</span>
+          <span className="short-text">Брифінг</span>
         </a>
         <button className="upload-btn" onClick={onExport} title="Експортувати поточні новини в Excel">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
