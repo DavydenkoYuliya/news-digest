@@ -630,21 +630,27 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px;
   .analytics-result-meta { font-size: 22px; }
 }
 
-/* ─── NARROW PHONES (≤480px): шапка з 3 навтабами + 4 кнопками не влазить у
-   стандартний mobile-брейкпоінт вище — додатково стискаємо, щоб нічого не
-   виїжджало за екран (перевірено виміром реальної ширини в devtools).
-   Тут же ховаємо короткий підпис "Брифінг" — лишається лише іконка, бо на
-   таких вузьких екранах навіть скорочений текст не вміщається разом з
-   3 навтабами + 3 іншими кнопками. ─── */
+/* ─── NARROW PHONES (≤480px): шапка з 3 навтабами + 4 кнопками не влазить в
+   один рядок — замість того щоб ховати підпис "Брифінг" до самої іконки,
+   переносимо праву групу кнопок на власний повноширинний другий рядок.
+   .app — flex-column на весь екран, .header має flex-shrink:0, а .main —
+   flex:1/min-height:0, тож вища шапка просто звільняє менше місця знизу,
+   без хардкод-зсувів (перевірено build-виміром: жоден рядок не переповнює
+   ширину екрана на 375px). Праву групу кнопок після переносу вже ніщо не
+   тісне — тому підпис "Брифінг" лишається видимим завжди, навіть тут. ─── */
 @media (max-width: 480px) {
-  .app .header { padding: 0 10px; }
+  .app .header {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 60px;
+    padding: 8px 10px;
+    overflow: visible;
+    row-gap: 6px;
+  }
+  .app .header-right { flex: 1 0 100%; justify-content: flex-end; gap: 6px; }
   .app .nav-tab { padding: 5px 6px; font-size: 11px; }
   .app .nav-tabs { gap: 2px; }
-  .app .header-right { gap: 3px; }
-  .app .header-right .brief-link, .app .header-right .upload-btn, .app .header-right .filter-mob-btn { padding: 6px 7px; }
-  .app .header-right .brief-link .short-text { display: none; }
-  .app .user-badge { padding: 2px; }
-  .app .user-avatar { width: 26px; height: 26px; font-size: 10px; }
+  .app .header-right .brief-link, .app .header-right .upload-btn, .app .header-right .filter-mob-btn { padding: 6px 9px; }
 }
 
 /* ─── ANALYTICS PAGE ─── */
