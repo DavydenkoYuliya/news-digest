@@ -1,0 +1,38 @@
+# =====================================================
+# ФІДИ ДЛЯ competitor_digest.py --producer louis_dreyfus
+# Louis Dreyfus Company (LDC) — глобальний ABCD-трейдер агросировини
+# Лінії: Grains & Oilseeds, Sugar, Coffee, Juice, Cotton, Rice, Freight
+# 45% — ADQ (Абу-Дабі, з 2021). Приватна (облігації). Мова: англ.+глобальна.
+# =====================================================
+
+# --- Google News: корпоративний рівень ---
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%20Company%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28grains%20OR%20oilseeds%20OR%20trading%20OR%20commodities%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20ADQ%20OR%20stake%20OR%20ownership&hl=en-US&gl=US&ceid=US:en
+
+# --- Товарні лінії (з контекстом LDC) ---
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28wheat%20OR%20corn%20OR%20soybean%20OR%20%22grains%20and%20oilseeds%22%20OR%20crush%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28sugar%20OR%20ethanol%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28coffee%20OR%20cotton%20OR%20juice%20OR%20rice%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Галузеві/аграрні трейдингові видання ---
+https://news.google.com/rss/search?q=site%3Aworld-grain.com%20%22Louis%20Dreyfus%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Aagricensus.com%20%22Louis%20Dreyfus%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Aagriculture.com%20%22Louis%20Dreyfus%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Areuters.com%20%22Louis%20Dreyfus%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Abloomberg.com%20%22Louis%20Dreyfus%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Фінанси/облігації/рейтинги (приватна, тому облігації) ---
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28results%20OR%20earnings%20OR%20EBITDA%20OR%20bond%20OR%20rating%20OR%20dividend%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Регіон/експорт/логістика (для трейдера — ключове) ---
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28export%20OR%20origination%20OR%20terminal%20OR%20port%20OR%20freight%20OR%20%22supply%20chain%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28Brazil%20OR%20Argentina%20OR%20%22Black%20Sea%22%20OR%20Ukraine%20OR%20China%20OR%20India%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Тематичні CI ---
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28acquisition%20OR%20merger%20OR%20divest%20OR%20%22joint%20venture%22%20OR%20expansion%20OR%20plant%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28lawsuit%20OR%20investigation%20OR%20sanctions%20OR%20antitrust%20OR%20fraud%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Louis%20Dreyfus%22%20%28sustainability%20OR%20deforestation%20OR%20%22carbon%22%20OR%20traceability%20OR%20ESG%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Прямі корпоративні (перевірити RSS вручну) ---
+# https://www.ldc.com/press-releases/  (перевірити RSS вручну)

@@ -1,0 +1,46 @@
+# =====================================================
+# ФІДИ ДЛЯ competitor_digest.py --producer ldc_groupe
+# Groupe LDC / L.D.C. S.A. — №1 з птиці у Франції/Європі (Euronext: LOUP)
+# Бренди: Le Gaulois, Maître CoQ, Loué, Marie, Le Fleuron, Bio Bresse
+# Мова: переважно французька. УВАГА: "LDC" плутається з Louis Dreyfus — тому
+#   запити прив’язані до "volaille"/"Groupe LDC"/брендів.
+# =====================================================
+
+# --- Google News: група (fr) ---
+https://news.google.com/rss/search?q=%22Groupe%20LDC%22%20volaille%20OR%20poulet&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22LDC%22%20volaille%20Sabl%C3%A9%20OR%20Sarthe%20OR%20poulet&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22Groupe%20LDC%22%20poultry%20France&hl=en-US&gl=US&ceid=US:en
+
+# --- Бренди (fr) ---
+https://news.google.com/rss/search?q=%22Le%20Gaulois%22%20volaille%20OR%20poulet&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22Ma%C3%AEtre%20Coq%22&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22Fermiers%20de%20Lou%C3%A9%22%20OR%20%22volailles%20de%20Lou%C3%A9%22&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22Marie%22%20traiteur%20OR%20surgel%C3%A9%20LDC&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22Bio%20Bresse%22%20OR%20%22Le%20Fleuron%22%20volaille&hl=fr-FR&gl=FR&ceid=FR:fr
+
+# --- Французька галузева/аграрна преса (site: через Google News) ---
+https://news.google.com/rss/search?q=site%3Areussir.fr%20%22LDC%22%20OR%20%22Le%20Gaulois%22%20OR%20%22Ma%C3%AEtre%20Coq%22&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=site%3Alafranceagricole.fr%20%22LDC%22%20volaille&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=site%3Aagro-media.fr%20%22LDC%22%20OR%20%22Le%20Gaulois%22&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=site%3Aprocessalimentaire.com%20%22LDC%22&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=site%3Afilieres-avicoles.com%20%22LDC%22%20OR%20volaille&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=site%3Aouest-france.fr%20%22Groupe%20LDC%22%20OR%20%22Ma%C3%AEtre%20Coq%22&hl=fr-FR&gl=FR&ceid=FR:fr
+
+# --- Французькі фінансові/бізнес ---
+https://news.google.com/rss/search?q=site%3Aboursorama.com%20%22LDC%22%20LOUP%20OR%20volaille&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=site%3Alesechos.fr%20%22Groupe%20LDC%22%20OR%20%22LDC%22%20volaille&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=site%3Azonebourse.com%20%22LDC%22%20LOUP&hl=fr-FR&gl=FR&ceid=FR:fr
+
+# --- Міжнародні галузеві (en) ---
+https://news.google.com/rss/search?q=site%3Awattagnet.com%20%22LDC%22%20OR%20%22Groupe%20LDC%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Apoultryworld.net%20%22LDC%22%20France&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Athepoultrysite.com%20%22LDC%22%20France&hl=en-US&gl=US&ceid=US:en
+
+# --- Тематичні CI (fr): пташиний грип/експорт, корми, праця, M&A, ESG ---
+https://news.google.com/rss/search?q=%22LDC%22%20OR%20%22Groupe%20LDC%22%20%28grippe%20aviaire%20OR%20%22influenza%20aviaire%22%20OR%20abattoir%20OR%20rappel%29&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22LDC%22%20OR%20%22Groupe%20LDC%22%20%28usine%20OR%20investissement%20OR%20extension%20OR%20fermeture%20OR%20abattoir%29&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22LDC%22%20OR%20%22Groupe%20LDC%22%20%28gr%C3%A8ve%20OR%20syndicat%20OR%20licenciement%20OR%20%22plan%20social%22%29&hl=fr-FR&gl=FR&ceid=FR:fr
+https://news.google.com/rss/search?q=%22Groupe%20LDC%22%20%28acquisition%20OR%20rachat%20OR%20r%C3%A9sultats%20OR%20chiffre%20d%E2%80%99affaires%29&hl=fr-FR&gl=FR&ceid=FR:fr
+
+# --- Прямі корпоративні (перевірити RSS вручну) ---
+# https://www.ldc.fr/  (IR/новини — публічного RSS немає)

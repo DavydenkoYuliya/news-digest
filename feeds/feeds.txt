@@ -1,0 +1,248 @@
+# =====================================================
+# ПОВНИЙ ОНОВЛЕНИЙ СПИСОК RSS ДЛЯ МОНІТОРИНГУ РИЗИКІВ
+# =====================================================
+
+# =====================================================
+# REUTERS (via Google News – STABLE)
+# =====================================================
+https://news.google.com/rss/search?q=site:reuters.com+logistics+OR+shipping+OR+freight+OR+port&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+economy+OR+inflation+OR+growth+OR+recession&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+agriculture+OR+grain+OR+feed+OR+corn+OR+soy&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+weather+OR+climate+OR+drought+OR+flood&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+inflation+OR+interest+rate+OR+GDP&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+commodity+OR+oil+OR+gas+OR+grain&hl=en-US&gl=US&ceid=US:en
+# Ширше покриття — бізнес та торгівля без прив'язки до теми
+https://news.google.com/rss/search?q=site:reuters.com+business+trade+OR+import+OR+export+OR+tariff&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+supply+chain+OR+procurement+OR+raw+material&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+metals+OR+chemicals+OR+fertilizer+OR+minerals&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# BLOOMBERG (via Google News – HEADLINES OK)
+# =====================================================
+https://news.google.com/rss/search?q=site:bloomberg.com+logistics+OR+shipping+OR+freight&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:bloomberg.com+economy+OR+inflation+OR+commodities&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:bloomberg.com+agriculture+OR+grain+OR+food&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:bloomberg.com+economy+OR+markets+OR+commodities&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:bloomberg.com+trade+OR+tariff+OR+supply+chain&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:bloomberg.com+metals+OR+chemicals+OR+fertilizer+OR+minerals&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# LOGISTICS / SUPPLY CHAIN (DIRECT)
+# =====================================================
+# REMOVED: freightwaves.com — US-centric (North American trucking)
+https://gcaptain.com/feed/
+https://www.marinelink.com/news/rss
+# REMOVED: hellenicshippingnews.com — RSS 403
+# REMOVED: logisticsmanager.com — склади та операційна логістика, не ризики
+
+# =====================================================
+# AGRICULTURE / FEED / COMMODITIES
+# =====================================================
+https://news.google.com/rss/search?q=site:fao.org+food+OR+agriculture+OR+grain+OR+crop&hl=en-US&gl=US&ceid=US:en
+# REMOVED: https://www.graincentral.com/feed/
+# REMOVED: feedstrategy.com — RSS 403
+# REMOVED: allaboutfeed.net — RSS 403
+
+# =====================================================
+# WEATHER / CLIMATE
+# =====================================================
+https://www.severe-weather.eu/feed/
+# REMOVED: climate.copernicus.eu — RSS публікує воркшопи вчених, не новини
+# REMOVED: https://www.noaa.gov/rss.xml — лише США
+
+# =====================================================
+# HEALTH / BIOSECURITY
+# =====================================================
+https://www.woah.org/en/rss/
+# REMOVED: who.int — занадто широко, поточні публікації не стосуються МХП
+
+# =====================================================
+# GEOPOLITICS / BACKGROUND
+# =====================================================
+# REMOVED: aljazeera.com/all.xml — стрічка "all" занадто шумна (спорт, культура)
+# REMOVED: bbc news/world — занадто широко, включає спорт і розваги
+
+# =====================================================
+# ЕНЕРГЕТИКА (НОВЕ)
+# =====================================================
+https://news.google.com/rss/search?q=site:reuters.com+energy+OR+electricity+OR+gas+prices&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:bloomberg.com+energy+OR+power+OR+gas&hl=en-US&gl=US&ceid=US:en
+# Ширше покриття — газ, LNG, трубопроводи, видобуток (без прив'язки до "prices")
+https://news.google.com/rss/search?q=site:reuters.com+LNG+OR+pipeline+OR+%22natural+gas%22+OR+%22energy+supply%22&hl=en-US&gl=US&ceid=US:en
+# Україна — енергетика, газ, Naftogaz, Чорне море
+https://news.google.com/rss/search?q=site:reuters.com+Ukraine+Naftogaz+OR+Ukraine+gas+OR+%22Black+Sea%22+energy&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# САНКЦІЇ / ТОРГОВІ ОБМЕЖЕННЯ (НОВЕ)
+# =====================================================
+https://news.google.com/rss/search?q=site:reuters.com+sanctions+OR+tariffs+OR+export+ban+OR+trade+restrictions&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# ВАЛЮТИ (НОВЕ)
+# =====================================================
+https://news.google.com/rss/search?q=site:reuters.com+currency+OR+exchange+rate+OR+dollar+OR+euro&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# ПТАШИНИЙ ГРІП / БІОБЕЗПЕКА МХП (НОВЕ)
+# =====================================================
+# REMOVED: avian flu - too specific, covered by biosecurity section
+# https://news.google.com/rss/search?q=avian+flu+OR+bird+flu+OR+H5N1&hl=en-US&gl=US&ceid=US:en
+
+# REMOVED: Україна — митниця / імпорт / регуляторика (локальні українські запити)
+
+# =====================================================
+# КРАЇНИ-ПОСТАЧАЛЬНИКИ — РИЗИКИ ЕКСПОРТУ (НОВЕ)
+# =====================================================
+https://news.google.com/rss/search?q=site:reuters.com+India+OR+Brazil+OR+Argentina+OR+China+export+ban+OR+export+restriction+OR+export+quota&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+Brazil+agriculture+OR+soybean+OR+corn+export&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+India+wheat+OR+rice+OR+export+ban&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# КОРМОВІ ІНГРЕДІЄНТИ — СПЕЦИФІЧНІ (НОВЕ)
+# =====================================================
+https://news.google.com/rss/search?q=soybean+meal+OR+sunflower+meal+OR+fish+meal+price&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=lysine+OR+methionine+OR+amino+acid+OR+premix+price&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=feed+ingredient+OR+feed+additive+shortage+OR+supply&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# БАНКІВСЬКІ / ПЛАТІЖНІ РИЗИКИ (НОВЕ)
+# =====================================================
+https://news.google.com/rss/search?q=site:reuters.com+SWIFT+OR+correspondent+bank+OR+trade+finance+sanctions&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+letter+of+credit+OR+payment+restriction+OR+bank+sanction&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# СТРАЙКИ / ЗАТОРИ В ПОРТАХ (НОВЕ)
+# =====================================================
+https://news.google.com/rss/search?q=port+strike+OR+dock+workers+strike+OR+port+congestion+OR+terminal+closure&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=longshoremen+OR+stevedore+strike+OR+labor+dispute+port&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# ТОРГОВЕЛЬНА ПОЛІТИКА — WTO / ЄС (НОВЕ)
+# =====================================================
+https://news.google.com/rss/search?q=site:reuters.com+WTO+OR+trade+dispute+OR+anti-dumping+OR+import+quota&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:reuters.com+EU+trade+policy+OR+EU+sanctions+OR+EU+import&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# НОВІ ДЖЕРЕЛА — ЛОГІСТИКА / АВІА / ЗАЛІЗНИЦЯ / КОРДОНИ
+# =====================================================
+
+# REMOVED: theloadstar.com — RSS 403
+
+# REMOVED: aircargonews.net — RSS 403
+# Авіація та аеропорти — пропускна здатність, затримки, тарифи
+https://news.google.com/rss/search?q=site:reuters.com+airport+OR+aviation+OR+%22air+cargo%22+OR+%22air+freight%22&hl=en-US&gl=US&ceid=US:en
+
+# RailFreight — залізнична логістика
+https://railfreight.com/feed/
+
+# Trans.info UA — автоперевезення та кордони ЄС
+https://trans.info/ua/feed/
+
+# REMOVED: supplychainbrain.com — RSS 403
+
+# REMOVED: border control - too general, low priority
+# Кордони та митний контроль — через Google News (відкриття і закриття)
+# https://news.google.com/rss/search?q=border+check+OR+border+control+OR+Schengen+OR+customs+clearance+freight&hl=en-US&gl=US&ceid=US:en
+
+# MarineTraffic — аналітика заторів у портах через Google News
+https://news.google.com/rss/search?q=site:marinetraffic.com+OR+port+congestion+vessel+delay&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# FINANCIAL TIMES — торгівля, геополітика, commodities
+# =====================================================
+# REMOVED: FT trade/commodities - duplicates Reuters/Bloomberg
+# https://news.google.com/rss/search?q=site:ft.com+trade+OR+tariff+OR+supply+chain+OR+commodities&hl=en-US&gl=US&ceid=US:en
+# REMOVED: FT agriculture - duplicates Reuters/Bloomberg
+# https://news.google.com/rss/search?q=site:ft.com+agriculture+OR+food+OR+grain+OR+energy&hl=en-US&gl=US&ceid=US:en
+# REMOVED: FT geopolitics - too broad
+# https://news.google.com/rss/search?q=site:ft.com+sanctions+OR+geopolitics+OR+war+OR+conflict&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# ASSOCIATED PRESS — широке світове покриття (без paywall)
+# =====================================================
+# REMOVED: rsshub.app/apnews — RSS 403
+https://news.google.com/rss/search?q=site:apnews.com+trade+OR+tariff+OR+sanctions+OR+supply+chain&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:apnews.com+agriculture+OR+food+OR+commodities+OR+energy&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# S&P GLOBAL / PLATTS — ціни сировини, енергетика, добрива
+# =====================================================
+# REMOVED: S&P Global - duplicates Reuters/Bloomberg/Fastmarkets
+# https://news.google.com/rss/search?q=site:spglobal.com+commodity+OR+fertilizer+OR+energy+OR+shipping&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:spglobal.com+grain+OR+agriculture+OR+metals+OR+chemicals&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# CNBC — ринки, макро, торгівля
+# =====================================================
+# REMOVED: CNBC trade - duplicates Reuters/Bloomberg
+# https://news.google.com/rss/search?q=site:cnbc.com+trade+OR+tariff+OR+supply+chain+OR+commodities&hl=en-US&gl=US&ceid=US:en
+# REMOVED: CNBC agriculture - duplicates Reuters/Bloomberg
+# https://news.google.com/rss/search?q=site:cnbc.com+agriculture+OR+energy+OR+inflation+OR+sanctions&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# POLITICO — торговельна політика ЄС, регуляторика
+# =====================================================
+# REMOVED: Politico EU trade - duplicates FT/other EU sources
+# https://news.google.com/rss/search?q=site:politico.eu+trade+OR+tariff+OR+sanctions+OR+agriculture&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:politico.eu+EU+import+OR+EU+regulation+OR+EU+food+safety&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# ДОБРИВА / ХІМІКАТИ / СИРОВИНА — спеціалізовані
+# =====================================================
+# Fertilizer International / CRU Group
+# REMOVED: fertilizer prices - too many duplicates
+# https://news.google.com/rss/search?q=fertilizer+OR+urea+OR+ammonia+OR+potash+price+OR+supply&hl=en-US&gl=US&ceid=US:en
+# Metals / Minerals — метали та мінерали
+https://news.google.com/rss/search?q=site:reuters.com+copper+OR+zinc+OR+phosphate+OR+potassium+OR+sulfur&hl=en-US&gl=US&ceid=US:en
+# Vet pharma / chemicals
+https://news.google.com/rss/search?q=veterinary+pharmaceutical+OR+animal+health+supply+OR+vet+drug+shortage&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# OIL PRICE / ENERGY INTEL — нафта та енергоносії
+# =====================================================
+https://oilprice.com/rss/main
+https://news.google.com/rss/search?q=site:reuters.com+crude+oil+OR+oil+price+OR+OPEC+OR+petroleum&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# PACKAGING / EQUIPMENT — упаковка та обладнання
+# =====================================================
+# REMOVED: packaging - low priority
+# https://news.google.com/rss/search?q=packaging+shortage+OR+packaging+supply+OR+packaging+price+increase&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# ПРЯМЕ ПОКРИТТЯ — ПТАХІВНИЦТВО / КОРМИ (ПРЯМІ RSS)
+# =====================================================
+# REMOVED: poultryworld.net — RSS 403
+# REMOVED: thepoultrysite.com — RSS 403
+# REMOVED: feednavigator.com — редіректить на agnavigator.com (змінив фокус на агротех)
+# REMOVED: world-grain.com — RSS 403
+
+# =====================================================
+# MARITIME — РОЗШИРЕНЕ ПОКРИТТЯ
+# =====================================================
+# REMOVED: splash247.com — RSS 403
+# REMOVED: porttechnology.org — RSS 403, надто нішевий (технології портів)
+# REMOVED: Undercurrent News — риба, рибне борошно, морепродукти
+# REMOVED: https://www.undercurrentnews.com/feed/
+
+# REMOVED: Україна — сільське господарство та економіка (локальні українські джерела)
+
+# =====================================================
+# COMMODITIES / ЦІНИ СИРОВИНИ — ШИРОКЕ ПОКРИТТЯ
+# =====================================================
+# REMOVED: agrimoney.com — сайт не відповідає (закритий)
+# Fastmarkets — метали, добрива, агро (Google News)
+https://news.google.com/rss/search?q=site:fastmarkets.com+fertilizer+OR+ammonia+OR+phosphate+OR+feed&hl=en-US&gl=US&ceid=US:en
+# ICIS — хімічна промисловість та кормові добавки
+https://news.google.com/rss/search?q=site:icis.com+amino+acid+OR+lysine+OR+methionine+OR+feed+additive&hl=en-US&gl=US&ceid=US:en
+# Аміак, добрива, уреа — широкий моніторинг
+https://news.google.com/rss/search?q=ammonia+OR+urea+OR+DAP+OR+MOP+supply+OR+price+shortage&hl=en-US&gl=US&ceid=US:en
+
+# =====================================================
+# ГЕОПОЛІТИКА — РОЗШИРЕНЕ (ПОТОЧНА КРИЗА ОРМУЗ/ІРАН)
+# =====================================================
+# Поточний конфлікт: Іран, Ормузька протока, Перська затока
+# REMOVED: Hormuz/Persian Gulf - geopolitics, not relevant
+# https://news.google.com/rss/search?q=Hormuz+OR+%22Persian+Gulf%22+OR+%22Gulf+oil%22+OR+Iran+strait&hl=en-US&gl=US&ceid=US:en
+# Нафта і геополітика
+https://news.google.com/rss/search?q=site:reuters.com+%22crude+oil%22+OR+OPEC+OR+%22oil+supply%22+OR+%22oil+tanker%22&hl=en-US&gl=US&ceid=US:en

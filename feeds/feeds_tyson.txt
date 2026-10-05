@@ -1,0 +1,125 @@
+# =====================================================
+# ФІДИ ДЛЯ competitor_digest.py --producer tyson
+# Емітент: Tyson Foods, Inc. (NYSE: TSN), CIK 0000100493
+# Сегменти: Chicken, Beef, Pork, Prepared Foods, International/Other
+# Бренди: Tyson, Jimmy Dean, Hillshire Farm, Ball Park, Wright, State Fair,
+#         Aidells, IBP
+# =====================================================
+
+# --- SEC EDGAR (Atom-фід, не блокується як HTML-браузинг) ---
+https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000100493&type=&dateb=&owner=include&count=40&output=atom
+
+# --- Google News: емітент/корпоративний рівень ---
+https://news.google.com/rss/search?q=%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson+Foods%22+NYSE%3ATSN&hl=en-US&gl=US&ceid=US:en
+
+# --- Google News: операційні сегменти (кожен окремим запитом, з контекстом Tyson) ---
+https://news.google.com/rss/search?q=%22Tyson%22+chicken+segment+OR+poultry&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%22+beef+segment+OR+cattle&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%22+pork+segment+OR+hogs&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%22+%22prepared+foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson+Foods%22+international+segment&hl=en-US&gl=US&ceid=US:en
+
+# --- Google News: бренди портфеля (розрізняльні — окремими запитами) ---
+https://news.google.com/rss/search?q=%22Jimmy+Dean%22+Tyson&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Hillshire+Farm%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Aidells%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Wright+Brand%22+bacon&hl=en-US&gl=US&ceid=US:en
+
+# --- Google News: бренди-омоніми (пара з "Tyson" для контексту, див. requires_context) ---
+https://news.google.com/rss/search?q=%22Ball+Park%22+franks+Tyson&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22State+Fair%22+corn+dog+Tyson&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22IBP%22+Tyson+beef+OR+pork&hl=en-US&gl=US&ceid=US:en
+
+# --- Галузеві видання (site: через Google News, бо прямих RSS немає) ---
+https://news.google.com/rss/search?q=site:wattagnet.com+%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:meatpoultry.com+%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:poultryworld.net+%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:just-food.com+%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:fooddive.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Виробництво/supply chain ---
+https://news.google.com/rss/search?q=site:manufacturingdive.com+%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Фінансові видання ---
+https://news.google.com/rss/search?q=site:reuters.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:benzinga.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:marketwatch.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Earnings-аналітика (покриває звітний сезон) ---
+https://news.google.com/rss/search?q=site:marketbeat.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:globenewswire.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:zacks.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:simplywall.st+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:stocktitan.net+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:fintel.io+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:tipranks.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:barchart.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:thefly.com+%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Прямі корпоративні джерела (RSS може не працювати — перевірити вручну за потреби) ---
+# https://www.tysonfoods.com/news (немає стабільного публічного RSS)
+# https://ir.tyson.com (IR-портал — публічного RSS немає, перевіряти вручну)
+
+# --- Подієві запити (операційні/надзвичайні/продуктові/маркетинг — НЕ лише фінанси) ---
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28recall%20OR%20%22food%20safety%22%20OR%20contamination%20OR%20salmonella%20OR%20listeria%20OR%20outbreak%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28fire%20OR%20explosion%20OR%20blast%20OR%20accident%20OR%20injured%20OR%20evacuated%20OR%20OSHA%20OR%20%22worker%20killed%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28layoffs%20OR%20%22plant%20closure%22%20OR%20%22closing%20plant%22%20OR%20shutdown%20OR%20idle%20OR%20%22job%20cuts%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28%22new%20plant%22%20OR%20opens%20OR%20opening%20OR%20expansion%20OR%20invests%20OR%20groundbreaking%20OR%20reopen%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28%22product%20launch%22%20OR%20%22new%20product%22%20OR%20%22product%20line%22%20OR%20rebrand%20OR%20packaging%20OR%20%22new%20flavor%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28marketing%20OR%20advertising%20OR%20%22ad%20campaign%22%20OR%20sponsorship%20OR%20%22brand%20refresh%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28lawsuit%20OR%20investigation%20OR%20%22class%20action%22%20OR%20settlement%20OR%20antitrust%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28CEO%20OR%20executive%20OR%20appoints%20OR%20resigns%20OR%20%22steps%20down%22%20OR%20%22board%20of%20directors%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28sustainability%20OR%20emissions%20OR%20%22animal%20welfare%22%20OR%20deforestation%20OR%20ESG%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Загальні новинні агенції та галузеві/виробничі видання (баланс проти фінансів) ---
+https://news.google.com/rss/search?q=site%3Aapnews.com%20%22Tyson%20Foods%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Afoodbusinessnews.net%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Afoodprocessing.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Aagweb.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Athepoultrysite.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Afeedstuffs.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Amarketingdive.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Aadage.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Локальні медіа штабквартири (Springdale/Арканзас — заводи, кадри, місцеві події) ---
+https://news.google.com/rss/search?q=site%3Aarkansasonline.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Atalkbusiness.net%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Athv11.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Тематичні запити CI (експорт/HPAI, корми, автоматизація, alt-protein, праця, контракти, логістика) ---
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28HPAI%20OR%20%22avian%20influenza%22%20OR%20%22bird%20flu%22%20OR%20H5N1%20OR%20%22export%20ban%22%20OR%20%22market%20access%22%20OR%20tariff%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28%22feed%20cost%22%20OR%20corn%20OR%20soybean%20OR%20grain%20OR%20hedging%20OR%20%22input%20cost%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28automation%20OR%20robotics%20OR%20%22artificial%20intelligence%22%20OR%20%22digital%20twin%22%20OR%20deboning%20OR%20%22machine%20vision%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28%22cultivated%20meat%22%20OR%20%22lab-grown%22%20OR%20%22cell-based%22%20OR%20%22alternative%20protein%22%20OR%20%22plant-based%22%20OR%20%22ready-to-eat%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28strike%20OR%20union%20OR%20walkout%20OR%20%22labor%20shortage%22%20OR%20wages%20OR%20migrant%20OR%20immigration%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28contract%20OR%20foodservice%20OR%20%22private%20label%22%20OR%20restaurant%20OR%20retailer%20OR%20%22supply%20deal%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28freight%20OR%20%22cold%20chain%22%20OR%20reefer%20OR%20%22supply%20chain%22%20OR%20logistics%20OR%20%22port%20delay%22%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Додаткові галузеві портали (птиця/свинина/ВРХ/Африка-Global) ---
+https://news.google.com/rss/search?q=site%3Awattpoultry.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Afoodbusinessafrica.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Anationalhogfarmer.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Adrovers.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Ameatingplace.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Регуляторні/безпекові першоджерела через Google News (структуровані дані USDA/OSHA — окрема інтеграція, див. нижче) ---
+https://news.google.com/rss/search?q=site%3Afsis.usda.gov%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28OSHA%20OR%20FSIS%20OR%20%22line%20speed%22%20OR%20%22establishment%22%29&hl=en-US&gl=US&ceid=US:en
+
+# ============================================================
+# ПОЗА МЕЖАМИ regex/RSS-треку (потребують окремих пайплайнів):
+#  - USDA структуровані дані (AMS Market News, NASS, FAS export sales) — таблиці, не новини
+#  - OSHA establishment/inspection API — структуровані інциденти
+#  - Патентні алерти Tyson (USPTO / Google Patents) — не новинний RSS
+#  - Вакансії R&D / Data Science (careers / LinkedIn) — скрейпер, не RSS
+#  - Кількісні метрики (FCR, вихід м’яса, OEE) — AI-екстракція з повного тексту
+# ============================================================
+
+# --- Earnings call transcripts (surfacing, метрики дістаються лише вручну/AI) ---
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20earnings%20call%20transcript&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Afool.com%20%22Tyson%20Foods%22%20transcript&hl=en-US&gl=US&ceid=US:en
+
+# --- Прямий Newsroom (першоджерело: дрібні призначення/інвест-анонси через Google News) ---
+https://news.google.com/rss/search?q=site%3Atysonfoods.com%20%22Tyson%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Tyson%20Foods%22%20%28%22press%20release%22%20OR%20newsroom%20OR%20announces%20OR%20announced%29&hl=en-US&gl=US&ceid=US:en

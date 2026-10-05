@@ -1,0 +1,58 @@
+# =====================================================
+# ФІДИ ДЛЯ competitor_digest.py --producer jbs
+# JBS N.V. / JBS S.A. — найбільша мʼясна компанія світу (NYSE: JBS, B3: JBSS32)
+# CIK 1791942. Сегменти: Brazil, Seara, Beef N.A., Pork USA, Pilgrim's, Australia
+# Бренди: Seara(птиця/свинина), Friboi, Swift, Maturatta, Moy Park, Primo, Huon
+# =====================================================
+
+# --- SEC EDGAR (Atom, JBS N.V./B.V., 6-K/20-F/F-4) ---
+https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1791942&type=&dateb=&owner=include&count=40&output=atom
+
+# --- Корпоративний рівень (en + pt) ---
+https://news.google.com/rss/search?q=%22JBS%22%20%28meat%20OR%20foods%20OR%20beef%29%20-%22just%20being%20silly%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22JBS%22%20frigor%C3%ADfico%20OR%20carne%20OR%20JBSS32&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22JBS%20N.V.%22%20OR%20%22JBS%20SA%22%20NYSE&hl=en-US&gl=US&ceid=US:en
+
+# --- Seara (КЛЮЧОВЕ: птиця/свинина, pt + en export) ---
+https://news.google.com/rss/search?q=%22Seara%22%20JBS%20OR%20frango%20OR%20aves%20OR%20alimentos&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22Seara%22%20JBS%20%28poultry%20OR%20chicken%20OR%20halal%20OR%20export%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Інші бренди ---
+https://news.google.com/rss/search?q=%22Friboi%22%20OR%20%22Maturatta%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22Swift%22%20JBS%20%28beef%20OR%20carne%20OR%20a%C3%A7ougue%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Pilgrim%27s%20Pride%22%20JBS&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Moy%20Park%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22JBS%20USA%22%20OR%20%22JBS%20Australia%22%20OR%20%22Primo%22%20JBS%20OR%20%22Huon%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Бразильська галузева/аграрна преса ---
+https://news.google.com/rss/search?q=site%3Aaviculturaindustrial.com.br%20%22JBS%22%20OR%20%22Seara%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Acanalrural.com.br%20%22JBS%22%20OR%20%22Seara%22%20OR%20%22Friboi%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Anoticiasagricolas.com.br%20%22JBS%22%20OR%20%22Seara%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Agloborural.globo.com%20%22JBS%22&hl=pt-BR&gl=BR&ceid=BR:pt
+
+# --- Бразильські фінанси ---
+https://news.google.com/rss/search?q=site%3Avalor.globo.com%20%22JBS%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Ainfomoney.com.br%20%22JBS%22%20OR%20%22JBSS32%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Aexame.com%20%22JBS%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Amoneytimes.com.br%20%22JBS%22&hl=pt-BR&gl=BR&ceid=BR:pt
+
+# --- Міжнародні галузеві/фінансові ---
+https://news.google.com/rss/search?q=site%3Ameatpoultry.com%20%22JBS%22%20OR%20%22Seara%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Awattagnet.com%20%22JBS%22%20OR%20%22Seara%22%20OR%20%22Pilgrim%27s%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Ajust-food.com%20%22JBS%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Areuters.com%20%22JBS%22%20meat%20OR%20beef&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Abloomberg.com%20%22JBS%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Експорт / Halal / Азія (Seara — великий Halal-експортер) ---
+https://news.google.com/rss/search?q=%22JBS%22%20OR%20%22Seara%22%20%28halal%20OR%20%22Saudi%22%20OR%20%22Middle%20East%22%20OR%20China%20OR%20%22export%20ban%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Azawya.com%20%22JBS%22%20OR%20%22Seara%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Тематичні CI (HPAI/експорт, ESG/деforestation, корупція/суди, M&A, праця) ---
+https://news.google.com/rss/search?q=%22JBS%22%20%28HPAI%20OR%20%22avian%20influenza%22%20OR%20%22bird%20flu%22%20OR%20%22export%20ban%22%20OR%20%22market%20access%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22JBS%22%20%28deforestation%20OR%20Amazon%20OR%20Cerrado%20OR%20ESG%20OR%20%22cattle%20monitoring%22%20OR%20sustainability%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22JBS%22%20%28lawsuit%20OR%20antitrust%20OR%20corruption%20OR%20bribery%20OR%20investigation%20OR%20SEC%20OR%20settlement%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22JBS%22%20%28desmatamento%20OR%20Amaz%C3%B4nia%20OR%20corrup%C3%A7%C3%A3o%20OR%20investiga%C3%A7%C3%A3o%20OR%20multa%20OR%20Cade%29&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22JBS%22%20%28acquisition%20OR%20merger%20OR%20%22new%20plant%22%20OR%20expansion%20OR%20capacity%20OR%20recall%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Прямі корпоративні (перевірити RSS вручну) ---
+# https://jbsfoodsgroup.com/  та  https://ri.jbs.com.br/ (перевірити RSS вручну)

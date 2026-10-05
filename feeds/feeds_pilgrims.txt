@@ -1,0 +1,62 @@
+# =====================================================
+# ФІДИ ДЛЯ competitor_digest.py --producer pilgrims
+# Сутності: Pilgrim's Pride Corporation, Pilgrim's UK, Pilgrim's Food
+# Masters, Moy Park, Pilgrim's Mexico, JBS (тільки в контексті PPC)
+# =====================================================
+
+# --- SEC EDGAR (Atom-фід, не блокується як HTML-браузинг) ---
+https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000802481&type=&dateb=&owner=include&count=40&output=atom
+
+# --- Google News: окремі запити по кожній сутності (не об'єднувати) ---
+https://news.google.com/rss/search?q=%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Pilgrim%27s+UK%22+OR+%22Pilgrim%27s+Europe%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Pilgrim%27s+Food+Masters%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Moy+Park%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22JBS%22+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Google News: іспанською (Mexico) ---
+https://news.google.com/rss/search?q=%22Pilgrim%27s+Pride%22+M%C3%A9xico&hl=es-419&gl=MX&ceid=MX:es
+
+# --- Google News: португальською (JBS Brasil) ---
+https://news.google.com/rss/search?q=%22JBS%22+%22Pilgrim%27s+Pride%22+participa%C3%A7%C3%A3o&hl=pt-BR&gl=BR&ceid=BR:pt
+
+# --- Галузеві видання (site: через Google News, бо прямих RSS немає) ---
+https://news.google.com/rss/search?q=site:wattagnet.com+Pilgrim%27s&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:meatpoultry.com+Pilgrim%27s&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:poultryworld.net+Pilgrim%27s&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:just-food.com+Pilgrim%27s&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:thegrocer.co.uk+%22Moy+Park%22+OR+%22Pilgrim%27s%22&hl=en-GB&gl=GB&ceid=GB:en
+https://news.google.com/rss/search?q=site:agriland.ie+%22Moy+Park%22+OR+%22Pilgrim%27s%22&hl=en-GB&gl=IE&ceid=IE:en
+
+# --- Фінансові видання ---
+https://news.google.com/rss/search?q=site:reuters.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:benzinga.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:marketwatch.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:marketbeat.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Галузеві видання (виробництво/supply chain) ---
+https://news.google.com/rss/search?q=site:manufacturingdive.com+%22Pilgrim%27s%22+OR+%22JBS%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Аналітика по earnings/акціях (додано 2026-07-29, покриває звітний сезон Q2) ---
+https://news.google.com/rss/search?q=site:globenewswire.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:zacks.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:simplywall.st+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:stocktitan.net+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:fintel.io+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:tipranks.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:barchart.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site:thefly.com+%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Британські галузеві/розслідувальні медіа (Moy Park / Pilgrim's Europe) ---
+https://news.google.com/rss/search?q=site:thedetail.tv+%22Moy+Park%22&hl=en-GB&gl=GB&ceid=GB:en
+https://news.google.com/rss/search?q=site:foodmanufacture.co.uk+%22Pilgrim%27s%22+OR+%22Moy+Park%22&hl=en-GB&gl=GB&ceid=GB:en
+https://news.google.com/rss/search?q=site:pig-world.co.uk+%22Pilgrim%27s%22+OR+%22Moy+Park%22&hl=en-GB&gl=GB&ceid=GB:en
+https://news.google.com/rss/search?q=site:poultrynews.co.uk+%22Pilgrim%27s%22+OR+%22Moy+Park%22&hl=en-GB&gl=GB&ceid=GB:en
+
+# --- Мексика/Латинська Америка ---
+https://news.google.com/rss/search?q=site:eleconomista.com.mx+Pilgrim%27s&hl=es-419&gl=MX&ceid=MX:es
+https://news.google.com/rss/search?q=site:elfinanciero.com.mx+Pilgrim%27s&hl=es-419&gl=MX&ceid=MX:es
+
+# --- Прямі корпоративні джерела (RSS може не працювати — перевірити вручну за потреби) ---
+# https://ir.pilgrims.com/news-events/press-releases (немає публічного RSS)
+# https://moypark.com/news (немає публічного RSS, редіректить на pilgrimseurope.com/news)

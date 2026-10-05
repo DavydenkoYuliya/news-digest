@@ -1,0 +1,73 @@
+# =====================================================
+# ФІДИ ДЛЯ competitor_digest.py --producer brf
+# Емітент: BRF S.A. (NYSE: BRFS, CIK 1122491) → з 09.2025 у складі
+#   MBRF Global Foods Company (B3: MBRF3, злиття Marfrig+BRF)
+# Бренди: Sadia, Perdigão, Qualy, Perdix, Banvit (TR), Kidelli
+# Фокус: поультрі/свинина + ЕКСПОРТ (Halal/Близький Схід, Азія, Туреччина)
+# =====================================================
+
+# --- SEC EDGAR (Atom, іноземний емітент: 6-K/20-F) ---
+https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1122491&type=&dateb=&owner=include&count=40&output=atom
+
+# --- Google News: емітент/холдинг (en + pt-BR) ---
+https://news.google.com/rss/search?q=%22BRF%20S.A.%22%20OR%20%22BRF%20Global%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22BRF%22%20empresa%20alimentos&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22MBRF%20Global%20Foods%22%20OR%20%22MBRF%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22MBRF%22%20OR%20%22Marfrig%20BRF%22&hl=pt-BR&gl=BR&ceid=BR:pt
+
+# --- Google News: бренди (pt-BR — головний ринок + en для експорту) ---
+https://news.google.com/rss/search?q=%22Sadia%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22Sadia%22%20BRF%20OR%20halal%20OR%20export&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Perdig%C3%A3o%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22Perdigao%22%20BRF&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Qualy%22%20BRF%20OR%20margarina&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22Banvit%22%20poultry%20OR%20Turkey%20OR%20BRF&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Perdix%22%20BRF%20OR%20export%20OR%20halal&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Kidelli%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22Marfrig%22%20BRF%20OR%20MBRF%20OR%20Sadia&hl=pt-BR&gl=BR&ceid=BR:pt
+
+# --- Бразильська галузева преса (птиця/агро — немає в англомовних фідах) ---
+https://news.google.com/rss/search?q=site%3Aaviculturaindustrial.com.br%20%22BRF%22%20OR%20%22Sadia%22%20OR%20%22Perdig%C3%A3o%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Aavisite.com.br%20%22BRF%22%20OR%20%22Sadia%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Acanalrural.com.br%20%22BRF%22%20OR%20%22Sadia%22%20OR%20%22Perdig%C3%A3o%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Anoticiasagricolas.com.br%20%22BRF%22%20OR%20%22Sadia%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Agloborural.globo.com%20%22BRF%22&hl=pt-BR&gl=BR&ceid=BR:pt
+
+# --- Бразильські фінансові видання ---
+https://news.google.com/rss/search?q=site%3Avalor.globo.com%20%22BRF%22%20OR%20%22MBRF%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Ainfomoney.com.br%20%22BRF%22%20OR%20%22MBRF%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Aexame.com%20%22BRF%22%20OR%20%22MBRF%22&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=site%3Amoneytimes.com.br%20%22BRF%22%20OR%20%22MBRF%22&hl=pt-BR&gl=BR&ceid=BR:pt
+
+# --- Міжнародні галузеві видання ---
+https://news.google.com/rss/search?q=site%3Awattagnet.com%20%22BRF%22%20OR%20%22Sadia%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Awattpoultry.com%20%22BRF%22%20OR%20%22Sadia%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Apoultryworld.net%20%22BRF%22%20OR%20%22Sadia%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Athepoultrysite.com%20%22BRF%22%20OR%20%22Sadia%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Ameatpoultry.com%20%22BRF%22%20OR%20%22Sadia%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Ajust-food.com%20%22BRF%22%20OR%20%22Sadia%22&hl=en-US&gl=US&ceid=US:en
+
+# --- Фінансові (міжнародні) ---
+https://news.google.com/rss/search?q=site%3Areuters.com%20%22BRF%22%20OR%20%22Marfrig%22%20OR%20%22MBRF%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Asimplywall.st%20%22BRF%22%20OR%20%22MBRF%22&hl=en-US&gl=US&ceid=US:en
+
+# --- ЕКСПОРТ: Halal / Близький Схід (ключове для BRF/Sadia) ---
+https://news.google.com/rss/search?q=site%3Azawya.com%20%22BRF%22%20OR%20%22Sadia%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Aagbi.com%20%22BRF%22%20OR%20%22Sadia%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=site%3Asalaamgateway.com%20%22BRF%22%20OR%20%22Sadia%22%20OR%20halal%20poultry&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22Sadia%22%20OR%20%22BRF%22%20%28halal%20OR%20%22Saudi%22%20OR%20%22Middle%20East%22%20OR%20UAE%20OR%20Gulf%29&hl=en-US&gl=US&ceid=US:en
+
+# --- ЕКСПОРТ: Туреччина (Banvit) / Азія ---
+https://news.google.com/rss/search?q=site%3Adailysabah.com%20%22BRF%22%20OR%20%22Banvit%22&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22BRF%22%20OR%20%22Sadia%22%20%28China%20OR%20Japan%20OR%20Singapore%20OR%20%22export%20ban%22%20OR%20%22export%20suspension%22%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Тематичні CI (HPAI/експорт, корми/соя, праця, контракти, ESG) ---
+https://news.google.com/rss/search?q=%22BRF%22%20OR%20%22Sadia%22%20%28HPAI%20OR%20%22avian%20influenza%22%20OR%20%22bird%20flu%22%20OR%20H5N1%20OR%20%22export%20ban%22%20OR%20%22market%20access%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22BRF%22%20%28gripe%20avi%C3%A1ria%20OR%20%22influenza%20avi%C3%A1ria%22%20OR%20exporta%C3%A7%C3%A3o%20OR%20embargo%29&hl=pt-BR&gl=BR&ceid=BR:pt
+https://news.google.com/rss/search?q=%22BRF%22%20OR%20%22MBRF%22%20%28corn%20OR%20soybean%20OR%20%22feed%20cost%22%20OR%20grain%20OR%20hedging%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22BRF%22%20OR%20%22MBRF%22%20%28strike%20OR%20union%20OR%20layoffs%20OR%20wages%20OR%20%22labor%22%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22BRF%22%20OR%20%22Sadia%22%20%28contract%20OR%20foodservice%20OR%20retailer%20OR%20%22supply%20deal%22%20OR%20%22new%20plant%22%20OR%20expansion%29&hl=en-US&gl=US&ceid=US:en
+https://news.google.com/rss/search?q=%22BRF%22%20OR%20%22MBRF%22%20%28deforestation%20OR%20Cerrado%20OR%20Amazon%20OR%20sustainability%20OR%20ESG%20OR%20%22animal%20welfare%22%29&hl=en-US&gl=US&ceid=US:en
+
+# --- Прямі корпоративні (RSS перевірити вручну) ---
+# https://ri.brf-global.com/en/  (IR-портал — публічного RSS немає)

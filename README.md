@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# AI Дайджест новин
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Щоночі збирає зовнішні новини з RSS, оцінює їх за допомогою AI для відділу закупівель і публікує статичний сайт:
 
-## Available Scripts
+- **Головне сьогодні** — найважливіші події по закупівлях і по конкурентах;
+- **Новини** — стрічка з фільтрами, закладками й експортом в Excel;
+- **Ринок закупівель** — короткі довідки по категоріях закупівель і напрямах (висновок → факти з посиланнями → деталі);
+- **Конкуренти** — брифінг по 5 світових виробниках м'яса птиці.
 
-In the project directory, you can run:
+На сайті немає серверної частини, ключів і даних користувачів — лише готові файли.
 
-### `npm start`
+## Як це працює
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```
+python run.py   (щоночі, ~01:00 за Києвом)
+  1. збір RSS (feeds/)                       → прибирання повторів
+  2. AI: оцінка за заголовками → детальний розбір релевантних
+  3. конкуренти: відбір за списками компаній (regex) + переклад
+  4. AI: брифінг конкурентів, довідки по категоріях
+  5. site/public/data/digest.json + site/public/competitor_brief.html
+cd site && npm run build   → статичні файли сайту в site/build
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Структура
 
-### `npm test`
+| Що | Де |
+|---|---|
+| Запуск | `run.py` |
+| Налаштування (без програміста) | `config.yaml` |
+| Ключ і вибір AI | `.env` (шаблон — `.env.example`) |
+| Інструкції для AI (методика) | `prompts/*.md` |
+| Джерела новин | `feeds/*.txt` |
+| Конкуренти: компанії, бренди, фільтри | `digest/competitors_config.py` |
+| Код | `digest/` |
+| Сайт (React) | `site/` |
+| Дані для сайту | `site/public/data/` |
+| Перевірки | `tests/` |
+| Нічний запуск на GitHub | `.github/workflows/digest.yml` |
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Запуск локально
 
-### `npm run build`
+```bash
+pip install -r requirements.txt
+cp .env.example .env        # вписати LLM_API_KEY
+python -m unittest discover tests   # перевірки без AI і без інтернету
+python run.py --dry-run     # весь конвеєр без AI (без витрат)
+python run.py               # справжній запуск
+cd site && npm ci && npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Вибір AI
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+У `.env`:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| LLM_PROVIDER | Що ще задати |
+|---|---|
+| `anthropic` (за замовчуванням) | `LLM_API_KEY`, `LLM_MODEL=claude-haiku-4-5` |
+| `openai` | `LLM_API_KEY`, `LLM_MODEL=<модель>`; `pip install openai` |
+| `azure` | `LLM_API_KEY`, `LLM_MODEL=<deployment>`, `AZURE_OPENAI_ENDPOINT`; `pip install openai` |
 
-### `npm run eject`
+Код звертається до AI лише через `digest/llm.py`, тож зміна провайдера — це зміна `.env`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Розміщення
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **GitHub:** `.github/workflows/digest.yml` — нічний запуск, збереження даних у репозиторії, публікація сайту в гілку `gh-pages` (GitHub Pages → Source: Deploy from a branch → gh-pages). Потрібен секрет `LLM_API_KEY`; за потреби змінні `LLM_PROVIDER`, `LLM_MODEL`.
+- **Будь-який інший сервер:** щоночі `python run.py`, потім `npm run build`, і вміст `site/build` віддати як статичні файли. Сайт зібрано з відносними шляхами, працює в будь-якій папці.
+- Між запусками треба зберігати `site/public/data/daily/` (останні 7 днів) — для прибирання повторів.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Безпека
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Єдиний секрет — ключ AI; лише в `.env` або секретах CI, у репозиторій не потрапляє.
+- Сайт статичний: без серверних функцій і без звернень до AI з браузера.
+- Рекомендовано розміщувати сайт за корпоративним входом.
+- Перевірка SSL увімкнена; вимкнути (`collect.verify_ssl: false`) лише для корпоративного проксі, що підміняє сертифікати.
 
-## Learn More
+## Якість AI-довідок
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Класифікація новин — та сама інструкція й форма відповіді, що й у попередній версії (перевірено посимвольно); напрям і категорія після відповіді звіряються зі списками `config.yaml`.
+- Довідки по категоріях — відповідь у заданій структурі (JSON Schema).
+- Кожен факт у довідці має посилання на новину стрічки.
+- Числа, яких немає в тексті джерела, не публікуються (`digest/guardrails.py`); довідка, що не пройшла перевірку, замінюється переліком новин.
+- Якщо новин у категорії менше `category_briefs.min_news`, довідка не створюється.
+- Біля кожної довідки — модель і версія інструкції.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Що змінилося порівняно з попередньою версією
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Методика, джерела, двоетапна класифікація, пороги прибирання повторів і брифінг конкурентів — без змін. Прибрано те, що не впливало на сайт: regex-«сигнали», Google-переклад загальних новин, проміжні збереження, Excel як формат передачі даних, серверні функції Vercel, другий репозиторій і токен для запису в нього. AI-аналітика тепер готується вночі.

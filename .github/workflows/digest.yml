@@ -1,0 +1,65 @@
+name: AI Дайджест новин
+
+on:
+  schedule:
+    - cron: '0 22 * * 0-4'   # 01:00 за Києвом (UTC+3), Пн–Пт
+  workflow_dispatch:          # ручний запуск з GitHub
+
+permissions:
+  contents: write   # зберегти щоденні файли даних і опублікувати сайт у гілку gh-pages
+
+concurrency:
+  group: digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      PYTHONUNBUFFERED: "1"
+      LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
+      LLM_MODEL: ${{ vars.LLM_MODEL || 'claude-haiku-4-5' }}
+      LLM_API_KEY: ${{ secrets.LLM_API_KEY || secrets.ANTHROPIC_API_KEY }}
+      AZURE_OPENAI_ENDPOINT: ${{ vars.AZURE_OPENAI_ENDPOINT }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Встановити залежності
+        run: |
+          pip install -r requirements.txt
+          if [ "$LLM_PROVIDER" != "anthropic" ]; then pip install "openai>=1,<3"; fi
+
+      - name: Перевірки (без AI)
+        run: python -m unittest discover tests
+
+      - name: Нічний запуск
+        run: python run.py
+
+      - name: Зберегти дані в репозиторії
+        run: |
+          git config user.email "github-actions@github.com"
+          git config user.name "GitHub Actions"
+          git add -A site/public/data site/public/competitor_brief.html
+          git diff --cached --quiet || git commit -m "Дані $(date +%Y-%m-%d)"
+          git push
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Зібрати сайт
+        working-directory: site
+        run: |
+          npm install
+          npm run build
+
+      # Публікація так само, як і раніше: у гілку gh-pages (налаштування Pages змінювати не треба)
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site/build
