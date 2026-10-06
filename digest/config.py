@@ -24,6 +24,10 @@ def load(config_path: Path | None = None) -> dict:
     _load_dotenv(ROOT / ".env")
     cfg = yaml.safe_load((config_path or ROOT / "config.yaml").read_text(encoding="utf-8"))
     cfg["root"] = ROOT
+    # напрям можна задати й просто назвою (без іконки) — тоді іконка «other»
+    cfg["taxonomy"]["domains"] = {
+        k: v if isinstance(v, dict) else {"name": v, "icon": "other"}
+        for k, v in cfg["taxonomy"]["domains"].items()}
     cfg["llm"].update({
         "provider": os.environ.get("LLM_PROVIDER", "anthropic").strip().lower(),
         "api_key": os.environ.get("LLM_API_KEY", "").strip(),

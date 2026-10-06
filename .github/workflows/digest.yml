@@ -2,7 +2,9 @@ name: AI Дайджест новин
 
 on:
   schedule:
-    - cron: '0 22 * * 0-4'   # 01:00 за Києвом (UTC+3), Пн–Пт
+    # Пн–Пт о 22:00 UTC = 01:00 за Києвом влітку, 00:00 взимку. GitHub може стартувати із затримкою
+    # до кількох годин — користувачам обіцяємо оновлення «до початку робочого дня».
+    - cron: '0 22 * * 0-4'
   workflow_dispatch:          # ручний запуск з GitHub
 
 permissions:
@@ -50,12 +52,12 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Зібрати сайт
         working-directory: site
         run: |
-          npm install
+          npm ci
           npm run build
 
       # Публікація так само, як і раніше: у гілку gh-pages (налаштування Pages змінювати не треба)

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getDomainKey, cleanSource } from '../utils/constants';
+import { cleanSource } from '../utils/constants';
 
 // Стабільний id новини (для закладок) — з посилання, а не з порядкового номера.
 function hashId(s) {
@@ -8,7 +8,7 @@ function hashId(s) {
   return 'u' + (h >>> 0).toString(36);
 }
 
-function toNews(it) {
+function toNews(it, domains) {
   const d = it.date ? new Date(it.date) : null;
   const sourceRaw = String(it.source || '').trim();
   return {
@@ -22,7 +22,7 @@ function toNews(it) {
     summary: it.summary || '',
     detailed: it.detailed || '',
     domain: it.domain || '',
-    domainKey: getDomainKey(it.domain || ''),
+    domainKey: (domains[it.domain] && domains[it.domain].icon) || 'other',
     category: it.category || '',
     country: it.country || '',
     commodity: it.commodity || '',
@@ -36,18 +36,23 @@ export function useDigestData() {
   const [state, setState] = useState({ news: [], market: [], today: null, meta: {}, loading: true, error: null });
 
   useEffect(() => {
-    const base = process.env.PUBLIC_URL || '.';
-    fetch(`${base}/data/digest.json?t=${Date.now()}`, { cache: 'no-store' })
+    fetch(`${import.meta.env.BASE_URL}data/digest.json?t=${Date.now()}`, { cache: 'no-store' })
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-      .then(d => setState({
-        news: (d.items || []).map(toNews).filter(n => n.title),
-        market: d.market || [],
-        today: d.today || null,
-        meta: { generated: d.generated, period: d.period, model: d.model, promptVersion: d.prompt_version,
-                domainLabels: d.domain_labels || {}, minNews: d.min_news || 5 },
-        loading: false,
-        error: null,
-      }))
+      .then(d => {
+        // напрями: { ключ: { name, icon } } з config.yaml; domain_labels — формат до schema_version 2
+        const domains = d.domains || Object.fromEntries(
+          Object.entries(d.domain_labels || {}).map(([k, name]) => [k, { name, icon: 'other' }]));
+        setState({
+          news: (d.items || []).map(it => toNews(it, domains)).filter(n => n.title),
+          market: d.market || [],
+          today: d.today || null,
+          meta: { generated: d.generated, period: d.period, model: d.model, promptVersion: d.prompt_version,
+                  domainLabels: Object.fromEntries(Object.entries(domains).map(([k, v]) => [k, v.name])),
+                  minNews: d.min_news || 5 },
+          loading: false,
+          error: null,
+        });
+      })
       .catch(e => setState(s => ({ ...s, loading: false, error: e.message })));
   }, []);
 

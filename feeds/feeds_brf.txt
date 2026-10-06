@@ -6,9 +6,6 @@
 # Фокус: поультрі/свинина + ЕКСПОРТ (Halal/Близький Схід, Азія, Туреччина)
 # =====================================================
 
-# --- SEC EDGAR (Atom, іноземний емітент: 6-K/20-F) ---
-https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1122491&type=&dateb=&owner=include&count=40&output=atom
-
 # --- Google News: емітент/холдинг (en + pt-BR) ---
 https://news.google.com/rss/search?q=%22BRF%20S.A.%22%20OR%20%22BRF%20Global%22&hl=en-US&gl=US&ceid=US:en
 https://news.google.com/rss/search?q=%22BRF%22%20empresa%20alimentos&hl=pt-BR&gl=BR&ceid=BR:pt

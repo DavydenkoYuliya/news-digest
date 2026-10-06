@@ -1,5 +1,5 @@
 
-export function Header({ activeTab, setActiveTab, bookmarkCount, user, onExport, onFilterToggle, activeFiltersCount }) {
+export function Header({ activeTab, setActiveTab, onFilterToggle, activeFiltersCount }) {
 
   return (
     <div className="header">
@@ -35,15 +35,6 @@ export function Header({ activeTab, setActiveTab, bookmarkCount, user, onExport,
             {label}
           </button>
         ))}
-        <button
-          className={`nav-tab ${activeTab === 'bookmarks' ? 'active' : ''}`}
-          onClick={() => setActiveTab('bookmarks')}
-        >
-          Закладки
-          {bookmarkCount > 0 && (
-            <span className="bookmark-count-badge">{bookmarkCount}</span>
-          )}
-        </button>
       </div>
 
       <div className="header-right">
@@ -59,16 +50,6 @@ export function Header({ activeTab, setActiveTab, bookmarkCount, user, onExport,
           </button>
         )}
 
-        <button className="upload-btn" onClick={onExport} title="Експортувати поточні новини в Excel">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
-          </svg>
-          <span>Експорт Excel</span>
-        </button>
-        <div className="user-badge" onClick={user.openModal} title="Змінити ім'я">
-          <div className="user-avatar">{user.initials}</div>
-          <span className="user-name">{user.name}</span>
-        </div>
       </div>
     </div>
   );

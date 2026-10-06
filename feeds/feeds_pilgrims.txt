@@ -4,9 +4,6 @@
 # Masters, Moy Park, Pilgrim's Mexico, JBS (тільки в контексті PPC)
 # =====================================================
 
-# --- SEC EDGAR (Atom-фід, не блокується як HTML-браузинг) ---
-https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000802481&type=&dateb=&owner=include&count=40&output=atom
-
 # --- Google News: окремі запити по кожній сутності (не об'єднувати) ---
 https://news.google.com/rss/search?q=%22Pilgrim%27s+Pride%22&hl=en-US&gl=US&ceid=US:en
 https://news.google.com/rss/search?q=%22Pilgrim%27s+UK%22+OR+%22Pilgrim%27s+Europe%22&hl=en-US&gl=US&ceid=US:en

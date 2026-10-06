@@ -1,0 +1,622 @@
+# Конкуренти: усе в одному файлі — які компанії стежимо, як їх упізнавати в новинах,
+# профіль для брифінгу і категорії подій. AI тут не використовується: відбір за словами (regex).
+#
+# ЯК ДОДАТИ КОНКУРЕНТА
+#   1. Скопіювати блок будь-якого виробника в розділ producers і змінити ключ (латиницею, напр. cargill).
+#   2. Створити файл feeds/feeds_<ключ>.txt зі списком RSS / Google News-запитів.
+#   3. publish: true — показувати на сайті й у брифінгу (false — налаштований, але не публікується).
+#   Порядок виробників у цьому файлі = порядок у брифінгу.
+#
+# ПОЛЯ ВИРОБНИКА
+#   name       — назва в брифінгу конкурентів
+#   label      — коротка назва в стрічці новин на сайті
+#   feeds_file — файл джерел у папці feeds/
+#   profile    — статична довідка в брифінгу (оновлювати вручну раз на рік, після річних звітів)
+#   entities   — компанії/бренди/сегменти, за якими новина зараховується цьому виробнику:
+#       keywords         — слова, з яких достатньо одного (у заголовку або описі)
+#       requires_context — якщо задано: новина береться лише тоді, коли є ще й одне з цих слів
+#                          (для багатозначних слів: chicken, Swift, Marie…)
+#       exclude          — мінус-слова: якщо є хоч одне, це не наша компанія (місто, прізвище, акторка…)
+#       ticker, country, parent_company — довідкові поля, можна не заповнювати
+#
+# ЯК ПИСАТИ СЛОВА (regex)
+#   Шаблони — в одинарних лапках. Апостроф усередині пишеться двічі: 'pilgrim''?s pride'.
+#   \b — межа слова ('\bppc\b' не спрацює на «uppcase»); ? — попередня літера необов'язкова;
+#   [ãa] — будь-яка з літер; (?:a|b) — одне з варіантів. Регістр неважливий (текст переводиться в нижній).
+#
+# Загальні фільтри біржового шуму (сторінки котирувань, звіти фондів про купівлю акцій, розіграші)
+# змінюються рідко і лежать у коді: digest/competitors.py.
+
+producers:
+
+  pilgrims:
+    name: Pilgrim's Pride
+    label: Pilgrim's
+    publish: true
+    feeds_file: feeds_pilgrims.txt
+    profile:
+      Штаб-квартира: "США, Грілі (Колорадо)"
+      Власність: "~80% належить JBS S.A. (Бразилія)"
+      Виручка: "$18.4 млрд за 2025 фінрік (+1.8% до попереднього року)"
+      Працівники: "~63 000"
+      Масштаб: "#2 виробник курятини у США (після Tyson) — 14 штатів + Мексика + Великобританія/Ірландія (Moy Park)"
+      Ринки збуту: "США (роздріб, foodservice), Мексика, Великобританія/ЄС"
+    entities:
+      - name: Pilgrim's Pride Corporation
+        short_name: Pilgrim's Pride
+        ticker: NASDAQ:PPC
+        country: US
+        parent_company: JBS S.A.
+        keywords: ['pilgrim''?s pride', '\bppc\b']
+      - name: Pilgrim's UK
+        short_name: Pilgrim's UK
+        country: UK
+        parent_company: Pilgrim's Pride Corporation
+        keywords: ['pilgrim''?s uk', 'pilgrim''?s europe']
+      - name: Pilgrim's Food Masters
+        short_name: Pilgrim's Food Masters
+        country: UK/IE
+        parent_company: Pilgrim's Pride Corporation
+        keywords: ['pilgrim''?s food masters', '\bfood masters\b']
+      - name: Moy Park
+        short_name: Moy Park
+        country: UK/IE
+        parent_company: Pilgrim's Pride Corporation
+        keywords: ['moy park']
+      - name: Pilgrim's Mexico
+        short_name: Pilgrim's Mexico
+        country: MX
+        parent_company: Pilgrim's Pride Corporation
+        keywords: ['pilgrim''?s m[ée]xico', 'pilgrim''?s mexico']
+      # JBS враховуємо ТІЛЬКИ за прямого зв'язку з PPC (частка, консолідація, спільні угоди)
+      - name: JBS S.A. (щодо PPC)
+        short_name: JBS
+        ticker: BVMF:JBSS3 / NYSE:JBS
+        country: BR
+        keywords: ['\bjbs\b']
+        requires_context: ['pilgrim''?s pride', '\bppc\b']
+
+  # Tyson — не холдинг, а один емітент (NYSE:TSN) із СЕГМЕНТАМИ та БРЕНДАМИ;
+  # тому entities тут = сегменти + бренди, а не дочірні компанії.
+  tyson:
+    name: Tyson Foods
+    label: Tyson
+    publish: true
+    feeds_file: feeds_tyson.txt
+    profile:
+      Штаб-квартира: "США, Спрінгдейл (Арканзас)"
+      Власність: "Публічна компанія, не холдинг — один емітент із сегментами"
+      Виручка: "$54.4 млрд за 2025 фінрік (+2.1% до попереднього року)"
+      Працівники: "~133 000"
+      Масштаб: "Один з найбільших мʼясопереробників США — Beef, Pork, Chicken, Prepared Foods"
+      Бренди: "Tyson, Jimmy Dean, Hillshire Farm, Ball Park, Aidells"
+      Ринки збуту: "Внутрішній ринок США + експорт курятини/яловичини в Азію та Мексику"
+    entities:
+      # Емітент; флагманський бренд «Tyson» покривається цією ж сутністю через \btyson\b
+      - name: Tyson Foods, Inc.
+        short_name: Tyson Foods
+        ticker: NYSE:TSN
+        country: US
+        keywords: ['tyson foods', '\btsn\b', '\btyson\b']
+      # Сегменти: загальні слова (beef/pork/chicken) → лише в контексті Tyson
+      - name: Tyson — Chicken segment
+        short_name: Tyson Chicken
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['\bchicken\b', '\bpoultry\b']
+        requires_context: ['\btyson\b', '\btsn\b']
+      - name: Tyson — Beef segment
+        short_name: Tyson Beef
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['\bbeef\b', '\bcattle\b']
+        requires_context: ['\btyson\b', '\btsn\b']
+      - name: Tyson — Pork segment
+        short_name: Tyson Pork
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['\bpork\b', '\bhogs?\b']
+        requires_context: ['\btyson\b', '\btsn\b']
+      - name: Tyson — Prepared Foods segment
+        short_name: Tyson Prepared Foods
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['prepared foods']
+        requires_context: ['\btyson\b', '\btsn\b']
+      - name: Tyson — International/Other segment
+        short_name: Tyson International
+        country: Global
+        parent_company: Tyson Foods, Inc.
+        keywords: ['international segment', 'tyson international']
+        requires_context: ['\btyson\b', '\btsn\b']
+      # Бренди з унікальними назвами — без вимоги контексту
+      - name: Jimmy Dean
+        short_name: Jimmy Dean
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['jimmy dean']
+      - name: Hillshire Farm
+        short_name: Hillshire Farm
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['hillshire farm', '\bhillshire\b']
+      - name: Aidells
+        short_name: Aidells
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['aidells']
+      # «Wright» саме по собі — надто поширене прізвище
+      - name: Wright Brand
+        short_name: Wright Brand
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['wright brand', 'wright bacon']
+      # Бренди-омоніми (загальні слова) — лише в контексті Tyson
+      - name: Ball Park
+        short_name: Ball Park
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['ball park', 'ballpark']
+        requires_context: ['\btyson\b', '\btsn\b', '\bfrank']
+      - name: State Fair
+        short_name: State Fair
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['state fair']
+        requires_context: ['\btyson\b', '\btsn\b', 'corn dog']
+      # IBP (Iowa Beef Packers) — абревіатура неоднозначна
+      - name: IBP
+        short_name: IBP
+        country: US
+        parent_company: Tyson Foods, Inc.
+        keywords: ['\bibp\b']
+        requires_context: ['\btyson\b', '\btsn\b', '\bbeef\b', '\bpork\b']
+
+  # Після злиття Marfrig+BRF (вересень 2025) BRF — у складі MBRF Global Foods.
+  # Фокус — BRF і бренди Sadia/Perdigão; Marfrig (яловичина) — лише в контексті BRF.
+  brf:
+    name: BRF / MBRF Global Foods
+    label: BRF
+    publish: true
+    feeds_file: feeds_brf.txt
+    profile:
+      Штаб-квартира: "Бразилія · з 09.2025 у складі MBRF Global Foods"
+      Власність: "Злиття BRF + Marfrig (вересень 2025)"
+      Виручка: "R$164 млрд (~$31 млрд) за 2025, +12% до попереднього року — рекордний рік"
+      Працівники: "~130 000"
+      Масштаб: "Один з найбільших експортерів курятини й свинини у світі — 8.2 млн т продукції/рік"
+      Бренди: "Sadia, Perdigão, Qualy, Banvit (Туреччина)"
+      Ринки збуту: "Halal/Близький Схід, Азія (Китай, Японія, Півд.Корея)"
+    entities:
+      - name: BRF S.A.
+        short_name: BRF
+        ticker: NYSE:BRFS / B3:BRFS3
+        country: BR
+        parent_company: MBRF Global Foods
+        keywords: ['brf s\.?a', '\bbrf\b', 'brf global']
+      - name: MBRF Global Foods
+        short_name: MBRF
+        ticker: B3:MBRF3
+        country: BR
+        keywords: ['\bmbrf\b', 'mbrf global']
+      # «sadia» — також прикметник (=здорова) і район міста (Sadia III)
+      - name: Sadia
+        short_name: Sadia
+        country: BR
+        parent_company: BRF S.A.
+        keywords: ['\bsadia\b']
+        exclude:
+          - '(?:mais|vida|alimenta[çc][ãa]o|mente|economia|concorr[êe]ncia|competi[çc][ãa]o|disputa|rivalidade|rela[çc][ãa]o|d[íi]eta|postura|pr[áa]tica|discuss[ãa]o|posi[çc][ãa]o)\s+(?:mais\s+)?sadi[ao]'
+          - 'sadia\s+i{1,3}\b'
+          - 'tapa-buraco'
+          - 'patrulhamento'
+      # «Perdigão» — ще й місто (MG) і прізвище: фабрика устілок, Rosa Perdigão, муніципальні новини
+      - name: Perdigão
+        short_name: Perdigão
+        country: BR
+        parent_company: BRF S.A.
+        keywords: ['perdig[ãa]o']
+        exclude:
+          - 'palmilha'
+          - '\beva\b'
+          - 'acaraj[ée]'
+          - 'baiana'
+          - '\bekedi\b'
+          - 'rosa perdig'
+          - 'prefeitura de perdig'
+          - 'munic[íi]pio de perdig'
+          - 'cidade de perdig'
+          # місто Perdigão/MG: «em Perdigão» (бренд пишуть «da Perdigão»), місцева індустрія, штат MG
+          - 'em perdig[ãa]o\b'
+          - 'ind[úu]stria em perdig'
+          - 'perdig[ãa]o[\s/,\-]*mg\b'
+      - name: Qualy
+        short_name: Qualy
+        country: BR
+        parent_company: BRF S.A.
+        keywords: ['\bqualy\b']
+      - name: Banvit
+        short_name: Banvit
+        country: TR
+        parent_company: BRF S.A.
+        keywords: ['\bbanvit\b']
+      # Perdix — експортний бренд BRF; слово також означає куріпок
+      - name: Perdix
+        short_name: Perdix
+        country: BR
+        parent_company: BRF S.A.
+        keywords: ['\bperdix\b']
+        requires_context: ['\bbrf\b', '\bsadia\b', 'export', 'halal']
+      - name: Kidelli
+        short_name: Kidelli
+        country: BR
+        parent_company: BRF S.A.
+        keywords: ['\bkidelli\b']
+      # Marfrig — лише за прямого зв'язку з BRF/птицею (як JBS у треку Pilgrim's)
+      - name: Marfrig (щодо BRF)
+        short_name: Marfrig
+        ticker: B3:MRFG3
+        country: BR
+        keywords: ['\bmarfrig\b']
+        requires_context: ['\bbrf\b', '\bmbrf\b', '\bsadia\b', 'perdig[ãa]o']
+
+  # Французький лідер з виробництва птиці. «LDC» — дуже неоднозначна абревіатура
+  # (Louis Dreyfus, least developed countries) → мінус-слова; бренди — загальні слова → контекст.
+  ldc_groupe:
+    name: Groupe LDC
+    label: LDC
+    publish: true
+    feeds_file: feeds_ldc_groupe.txt
+    profile:
+      Штаб-квартира: "Франція, Сабле-сюр-Сарт"
+      Власність: "Сімейна компанія (не холдинг конгломерату)"
+      Виручка: "€6.3 млрд за 2024/2025 фінрік"
+      Працівники: "~24 500"
+      Масштаб: "№1 виробник птиці у Франції, один з лідерів у Європі"
+      Бренди: "Le Gaulois, Maître CoQ, Loué, Marie, Bio Bresse"
+      Ринки збуту: "Переважно Франція/ЄС, невеликий експорт"
+    entities:
+      - name: Groupe LDC (L.D.C. S.A.)
+        short_name: Groupe LDC
+        ticker: EURONEXT:LOUP
+        country: FR
+        keywords: ['groupe ldc', '\bl\.d\.c\b', '\bldc\b']
+        exclude: ['louis[\s-]?dreyfus', '\bdreyfus\b', 'least developed countr', '\bldcs\b']
+      - name: Le Gaulois
+        short_name: Le Gaulois
+        country: FR
+        parent_company: Groupe LDC
+        keywords: ['le gaulois']
+      - name: Maître CoQ
+        short_name: Maître CoQ
+        country: FR
+        parent_company: Groupe LDC
+        keywords: ['ma[îi]tre coq']
+      # «loué» = також «орендований/хвалений» → лише в контексті птиці/бренду
+      - name: Loué (Fermiers de Loué)
+        short_name: Loué
+        country: FR
+        parent_company: Groupe LDC
+        keywords: ['fermiers de lou[ée]', 'volailles? de lou[ée]', 'poulet.{0,10}lou[ée]', 'lou[ée] label']
+      # «Marie» — надто поширене ім'я → лише в кулінарно-брендовому контексті
+      - name: Marie (traiteur)
+        short_name: Marie
+        country: FR
+        parent_company: Groupe LDC
+        keywords: ['\bmarie\b']
+        requires_context: ['\bldc\b', 'traiteur', 'surgel', 'plat cuisin', 'marque marie']
+        exclude: ['sainte?[\s-]marie', 'marie curie', 'marie[\s-]claire']
+      - name: Volailles Le Fleuron
+        short_name: Le Fleuron
+        country: FR
+        parent_company: Groupe LDC
+        keywords: ['le fleuron']
+        requires_context: ['\bldc\b', 'volaill', 'poulet']
+      - name: Bio Bresse
+        short_name: Bio Bresse
+        country: FR
+        parent_company: Groupe LDC
+        keywords: ['bio bresse']
+
+  # Louis Dreyfus Company — глобальний агротрейдер (зерно, олійні, цукор, кава, сік).
+  # 45% — ADQ (Абу-Дабі). Товарні лінії — загальні слова → лише в контексті LDC.
+  # Налаштований, але не публікується.
+  louis_dreyfus:
+    name: Louis Dreyfus Company
+    label: Louis Dreyfus
+    publish: false
+    feeds_file: feeds_louis_dreyfus.txt
+    entities:
+      - name: Louis Dreyfus Company
+        short_name: Louis Dreyfus
+        country: NL
+        keywords: ['louis[\s-]?dreyfus']
+        exclude: ['julia louis', 'seinfeld', '\bveep\b', 'actress']   # Джулія Луї-Дрейфус (акторка)
+      - name: LDC — Grains & Oilseeds
+        short_name: LDC Grains & Oilseeds
+        country: Global
+        parent_company: Louis Dreyfus Company
+        keywords: ['grains? and oilseeds?', 'grains? & oilseeds?', '\bwheat\b', '\bsoybean', '\bcorn\b', 'oilseed']
+        requires_context: ['louis[\s-]?dreyfus', '\bldc\b']
+      - name: LDC — Sugar
+        short_name: LDC Sugar
+        country: Global
+        parent_company: Louis Dreyfus Company
+        keywords: ['\bsugar\b', 'ethanol']
+        requires_context: ['louis[\s-]?dreyfus', '\bldc\b']
+      - name: LDC — Coffee
+        short_name: LDC Coffee
+        country: Global
+        parent_company: Louis Dreyfus Company
+        keywords: ['\bcoffee\b']
+        requires_context: ['louis[\s-]?dreyfus', '\bldc\b']
+      - name: LDC — Juice
+        short_name: LDC Juice
+        country: Global
+        parent_company: Louis Dreyfus Company
+        keywords: ['\bjuice\b', 'orange juice', '\bfcoj\b']
+        requires_context: ['louis[\s-]?dreyfus', '\bldc\b']
+      - name: LDC — Cotton
+        short_name: LDC Cotton
+        country: Global
+        parent_company: Louis Dreyfus Company
+        keywords: ['\bcotton\b']
+        requires_context: ['louis[\s-]?dreyfus', '\bldc\b']
+      - name: ADQ (щодо LDC)
+        short_name: ADQ
+        country: AE
+        keywords: ['\badq\b']
+        requires_context: ['louis[\s-]?dreyfus', '\bldc\b']
+
+  # Найбільша м'ясна компанія світу. Для МХП ключове — Seara (птиця/свинина).
+  # Pilgrim's/Moy Park — дочірні JBS (перетин із треком Pilgrim's очікуваний).
+  jbs:
+    name: JBS
+    label: JBS
+    publish: true
+    feeds_file: feeds_jbs.txt
+    profile:
+      Штаб-квартира: "Бразилія/Нідерланди"
+      Власність: "Найбільша мʼясна компанія світу за виручкою"
+      Виручка: "$86.2 млрд за 2025 — рекордний рік (+15% до попереднього року)"
+      Працівники: "~283 000 у світі"
+      Масштаб: "7 сегментів (Brazil, Seara, Beef N.America, Pork USA, Pilgrim's ~80%, Australia) — ~14% ринку мʼясопереробки США"
+      Бренди: "Seara, Friboi, Swift, Moy Park, Primo"
+      Ринки збуту: "Глобальна присутність на всіх континентах"
+    entities:
+      - name: JBS N.V. / JBS S.A.
+        short_name: JBS
+        ticker: NYSE:JBS / B3:JBSS32
+        country: BR
+        keywords: ['\bjbs\b', 'jbs n\.?v', 'jbs s\.?a', 'jbs foods']
+      # «seara» = також місто (SC) і фігуральне «na seara da…» («на ниві…»)
+      - name: Seara
+        short_name: Seara
+        country: BR
+        parent_company: JBS N.V.
+        keywords: ['\bseara\b']
+        exclude:
+          - '\bna seara d[aeo]s?\b'
+          - 'seara (?:pol[íi]tica|jur[íi]dica|esportiva|liter[áa]ria|acad[êe]mica|econ[óo]mica|digital|do direito|da sa[úu]de|cultural)'
+          - 'munic[íi]pio de seara'
+          - 'prefeitura de seara'
+      - name: Friboi
+        short_name: Friboi
+        country: BR
+        parent_company: JBS N.V.
+        keywords: ['\bfriboi\b', '\bmaturatta\b']
+      # Swift — надто багатозначне слово → лише в м'ясному/JBS контексті + мінус-слова
+      - name: Swift (JBS)
+        short_name: Swift
+        country: BR
+        parent_company: JBS N.V.
+        keywords: ['\bswift\b']
+        requires_context: ['\bjbs\b', 'beef', '\bpork\b', '\bmeat\b', '\bcarne\b', 'friboi', 'a[çc]ougue']
+        exclude:
+          - 'taylor swift'
+          - 'swift code'
+          - 'swift current'
+          - 'swift transportation'
+          - '\bswift\b.{0,12}(?:payment|bank|network|messaging|transfer|iban)'
+          - 'programming|xcode|\bios app'
+      - name: Pilgrim's Pride (JBS)
+        short_name: Pilgrim's Pride
+        ticker: NASDAQ:PPC
+        country: US
+        parent_company: JBS N.V.
+        keywords: ['pilgrim''?s pride', '\bppc\b']
+      - name: Moy Park (JBS)
+        short_name: Moy Park
+        country: UK/IE
+        parent_company: JBS N.V.
+        keywords: ['moy park']
+      - name: JBS USA (Beef/Pork North America)
+        short_name: JBS USA
+        country: US
+        parent_company: JBS N.V.
+        keywords: ['jbs usa', 'beef north america', 'pork usa']
+        requires_context: ['\bjbs\b']
+      - name: JBS Australia
+        short_name: JBS Australia
+        country: AU
+        parent_company: JBS N.V.
+        keywords: ['jbs australia', '\bprimo\b', '\bhuon\b', 'rivalea']
+        requires_context: ['\bjbs\b', 'australia', 'aquaculture', 'salmon', 'smallgoods', 'bacon']
+
+
+# Оцінка новини конкурента за тим, наскільки прямо згадано компанію
+relevance_scores: {висока: 8, середня: 5, низька: 2}
+
+
+# КАТЕГОРІЇ ПОДІЙ — однакові для всіх конкурентів. Новина отримує всі категорії, слова яких знайдено
+# (інакше «інше»). Слова англійською (en), португальською — Бразилія (pt), французькою — Франція (fr).
+event_categories:
+
+  фінанси:
+    en:
+      - 'earnings'
+      - 'revenue'
+      - 'quarterly results'
+      - 'profit'
+      - 'net income'
+      - 'stock (?:price|closes?|falls?|rises?|drops?)'
+      - 'share price'
+      - 'dividend'
+      - 'analyst'
+      - 'price target'
+      - 'consensus rating'
+      - 'guidance'
+      - 'market cap'
+      - 'stock (?:surg\w+|slid\w+|jumps?|rally|rallies|climbs?|gains?|sinks?|dips?|trading up|trading down|underperform\w*|outperform\w*)'
+      - '\brating\b'
+      - 'undervalued'
+      - 'overvalued'
+      - 'valuation'
+      - 'bargain'
+      - 'trending stock'
+      - 'consensus'
+      - '\bf?q[1-4]\b'
+      - '(?:first|second|third|fourth)[\s-]quarter'
+      - 'quarterly (?:income|profit|loss)'
+      - '\bresults\b'
+      - '\beps\b'
+      - 'earnings per share'
+      - '\b10-[qk]\b'
+      - '(?:miss|beat)\w*\s+(?:estimates|expectations)'
+      - '\boutlook\b'
+      - 'full-year'
+      - '\bsales\b'
+      - 'restructuring'
+      - 'upgrade[sd]?'
+      - 'downgrade[sd]?'
+      - '\brsus?\b'
+      - '\bvolumes?\b'
+    pt: ['lucro', 'receita', 'preju[íi]zo', 'dividendo', '\ba[çc][õo]es\b', 'em (?:queda|alta|baixa)',
+         'despenca', 'dispara', 'balan[çc]o', 'resultado', 'pre[çc]o-alvo', 'recomenda[çc][ãa]o', 'ibovespa',
+         'lucro l[íi]quido', 'faturamento', 'margem', '\bebitda\b', 'favorita do setor']
+    fr: ['chiffre d''affaires', 'b[ée]n[ée]fice', 'r[ée]sultat net', 'dividende', 'cours de bourse', 'en bourse',
+         'le titre', 'objectif de cours', 'recommandation', '\bmarge', 'rentabilit[ée]', '\bebitda\b']
+
+  M&A:
+    en: ['acquisit', 'acquire[sd]?\b', 'merger', '\bstake\b', 'divest', 'takeover', 'buyout', 'joint venture',
+         'consolidat']
+    pt: ['aquisi[çc][ãa]o', 'fus[ãa]o', 'incorpora[çc][ãa]o', 'participa[çc][ãa]o societ[áa]ria', 'venda de ativos',
+         'cis[ãa]o']
+    fr: ['acquisition', 'fusion', 'rachat', 'cession', 'prise de participation', 'reprise de', 'co-entreprise']
+
+  операційна діяльність:
+    en:
+      - '\bplant\b'
+      - 'facility'
+      - 'production line'
+      - 'expansion'
+      - 'capacity'
+      - '\boutput\b'
+      - 'recall'
+      - 'processing plant'
+      - 'new (?:facility|plant|line|production line)'
+      - 'closure'
+      - 'shutdown'
+      - 'opens? (?:a )?(?:new )?(?:plant|facility|line|processing)'
+      - '(?:plant|facility) (?:opening|expansion|closure|closing)'
+      - 'groundbreaking'
+      - 'break ground'
+      - 'reopen'
+      - 'layoffs?'
+      - 'lay off'
+      - 'job cuts'
+      - '\bidle\b'
+      - 'feed cost'
+      - 'feed prices?'
+      - 'grain prices?'
+      - 'corn prices?'
+      - 'soybean'
+      - 'soymeal'
+      - 'input cost'
+      - 'hedg(?:e|ing|ed)'
+      - 'throughput'
+    pt: ['f[áa]brica', 'planta industrial', 'unidade industrial', 'amplia[çc][ãa]o', 'expans[ãa]o', 'capacidade',
+         'linha de produ[çc][ãa]o', 'fechamento', 'produ[çc][ãa]o', 'investimento', 'inaugura', 'nova unidade']
+    fr: ['\busine\b', 'site de production', 'abattoir', 'capacit[ée]', 'extension', 'agrandissement', 'fermeture',
+         'production', 'investit', 'investissement', 'inaugure', 'ligne de production', 'nouveau site',
+         'modernisation']
+
+  надзвичайні події:
+    en: ['explosion', '\bblast\b', '\bfire\b', '\bblaze\b', 'accident', 'injur(?:y|ed|ies)', 'fatalit', '\bdeaths?\b',
+         '\bkilled\b', 'evacuat', 'hazmat', 'ammonia leak', '\bspill\b', '\bincident\b', 'contaminat', 'outbreak',
+         'salmonella', 'listeria', 'e\.?\s?coli', '\bosha\b', 'emergency', 'worker (?:killed|injured|dies|hurt)']
+    pt: ['inc[êe]ndio', 'explos[ãa]o', 'vazamento', 'am[óo]nia', 'acidente', 'evacua[çc][ãa]o', 'contamina[çc][ãa]o',
+         'surto', '\bmorte', 'ferido']
+    fr: ['incendie', 'explosion', 'fuite d''ammoniac', 'accident', '[ée]vacuation', 'contamination', '[ée]pid[ée]mie',
+         '\bmort', 'bless[ée]', 'intoxication']
+
+  регуляторика:
+    en: ['regulat', '\bpermit\b', 'compliance', 'inspection', '\busda\b', '\bfda\b', '\bepa\b', '\bniea\b',
+         '\bdaera\b', 'environmental permit', 'food safety', '\bfsis\b', 'line speed']
+    pt: ['regula[çc]', '\banvisa\b', '\bmapa\b', 'fiscaliza[çc][ãa]o', 'inspe[çc][ãa]o', 'licen[çc]a',
+         'seguran[çc]a alimentar', 'recolhimento']
+    fr: ['r[ée]glementation', '\bdgal\b', '\banses\b', 'contr[ôo]le sanitaire', 'inspection', 'autorisation',
+         's[ée]curit[ée] alimentaire', '\brappel\b']
+
+  судові справи:
+    en: ['lawsuit', '\bcourt\b', 'litigation', '\bsue[sd]?\b', 'legal action', 'settlement', 'petition.*court',
+         'class action']
+    pt: ['processo judicial', 'a[çc][ãa]o judicial', '\bjusti[çc]a\b', 'liminar', 'acordo judicial', '\bmulta\b',
+         'condena[çc][ãa]o']
+    fr: ['proc[èe]s', 'tribunal', '\bjustice\b', 'plainte', 'condamnation', '\bamende\b', 'contentieux']
+
+  кадри:
+    en: ['\bappoint', '\bceo\b', 'executive', 'board of directors', '\bhire[sd]?\b', 'resign', 'chief .*officer',
+         'names? .* as', 'steps down']
+    pt: ['nomeia', 'executivo', 'conselho de administra[çc][ãa]o', 'ren[úu]ncia', 'demite', 'diretor-presidente',
+         'novo (?:ceo|presidente|diretor)']
+    fr: ['\bnomme\b', 'nomination', '\bpdg\b', 'directeur g[ée]n[ée]ral', 'conseil d''administration',
+         'd[ée]mission', 'dirigeant']
+
+  продукти:
+    en: ['product launch', 'rebrand', 'new product', 'brand identity', 'nugget', 'lineup', 'packaging redesign',
+         'product line', 'new line', 'new flavou?r', 'limited edition', 'menu item', 'cultivated meat',
+         'cultured meat', 'lab.grown', 'cell.based', 'alternative protein', 'plant.based', 'ready.to.eat', '\brte\b',
+         'foodservice (?:deal|contract)', 'supply (?:deal|agreement|contract)', 'private label',
+         '(?:wins?|lost|loses?) .{0,20}contract']
+    pt: ['lan[çc]amento', 'novo produto', 'linha de produtos', 'embalagem', '\bsabor\b', 'novidade',
+         'edi[çc][ãa]o limitada', 'colecion[áa]vel']
+    fr: ['lancement', 'nouveau produit', '\bgamme\b', 'nouvelle recette', 'innovation produit']
+
+  маркетинг:
+    en: ['marketing (?:plan|strategy|campaign|push)', 'ad campaign', 'advertis', 'rebrand', 'brand refresh',
+         'sponsorship', 'super bowl ad', 'brand (?:identity|relaunch)', '\bcampaign\b', 'giveaway', 'gives? away',
+         'sweepstakes', 'season tickets', 'promotion']
+    pt: ['campanha', 'publicidade', 'propaganda', 'patroc[íi]nio', 'rebranding', 'mais escolhida', 'marca mais',
+         'garoto-propaganda']
+    fr: ['campagne', 'publicit[ée]', 'parrainage', 'sponsoring', 'la marque']
+
+  технології/автоматизація:
+    en: ['automation', '\brobot', 'robotic', 'artificial intelligence', 'machine vision', 'computer vision',
+         'digital twin', '\boee\b', 'deboning', 'automated (?:line|plant)', 'predictive maintenance']
+    pt: ['automa[çc][ãa]o', 'rob[óo]tica', 'intelig[êe]ncia artificial', 'digitaliza[çc][ãa]o', '\bia\b']
+    fr: ['automatisation', 'robotique', 'intelligence artificielle', 'num[ée]risation']
+
+  експорт/ринки збуту:
+    en: ['\bhpai\b', 'avian (?:influenza|flu)', 'bird flu', 'h5n1', 'export (?:ban|permit|market|sales|deal)',
+         'import ban', 'market access', 'trade (?:deal|barrier|dispute)', '\btariff', 'port (?:delay|congestion)',
+         'cold chain', '\breefer\b', 'ocean freight', 'freight rate', 'container ship',
+         'cattle (?:import|shipment)s?', 'resume.{0,20}(?:cattle|shipment)', 'approves?.{0,20}cattle',
+         'shipments? from', '\bhalal\b', 'export (?:ban|suspension|permit|licen[cs]e)', 'import ban']
+    pt: ['exporta[çc][ãa]o', 'importa[çc][ãa]o', 'embargo', 'tarifa', 'gripe avi[áa]ria', 'influenza avi[áa]ria',
+         'acesso a mercado', 'porto de santos', 'habilita[çc][ãa]o', '\bhalal\b']
+    fr: ['exportation', 'importation', 'embargo', 'grippe aviaire', 'influenza aviaire', '\bfavi\b',
+         'march[ée] export', 'tarif douanier', '\bdouane', 'acc[èe]s au march[ée]']
+
+  робоча сила:
+    en: ['\bstrike\b', '\bunion\b', 'walkout', 'picket', 'labor shortage', 'worker shortage', 'staffing',
+         'wage (?:increase|hike)', 'hourly (?:pay|wage)', '\bmigrant', 'immigration raid', 'workforce']
+    pt: ['greve', 'sindicato', 'demiss[õo]es', '\bsal[áa]rio', 'm[ãa]o de obra']
+    fr: ['\bgr[èe]ve\b', 'syndicat', 'licenciement', '\bsalaire', 'main-d''œuvre', 'plan social']
+
+  ESG:
+    en: ['net.zero', 'sustainab', 'emission', 'deforestation', 'greenpeace', '\besg\b', '\bcarbon\b',
+         'animal welfare', 'environmental', 'cerrado', 'amaz[ôo]nia', 'amazon (?:rainforest|biome|deforestation|forest)',
+         'soy moratorium']
+    pt: ['sustentabilidade', 'emiss[õo]es', 'desmatamento', 'bem-estar animal', 'carbono', 'cerrado', 'amaz[ôo]nia']
+    fr: ['durabilit[ée]', '[ée]missions', 'bien-[êe]tre animal', 'd[ée]forestation', '\bcarbone\b', 'empreinte']

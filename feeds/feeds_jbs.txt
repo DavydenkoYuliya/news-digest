@@ -5,9 +5,6 @@
 # Бренди: Seara(птиця/свинина), Friboi, Swift, Maturatta, Moy Park, Primo, Huon
 # =====================================================
 
-# --- SEC EDGAR (Atom, JBS N.V./B.V., 6-K/20-F/F-4) ---
-https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=1791942&type=&dateb=&owner=include&count=40&output=atom
-
 # --- Корпоративний рівень (en + pt) ---
 https://news.google.com/rss/search?q=%22JBS%22%20%28meat%20OR%20foods%20OR%20beef%29%20-%22just%20being%20silly%22&hl=en-US&gl=US&ceid=US:en
 https://news.google.com/rss/search?q=%22JBS%22%20frigor%C3%ADfico%20OR%20carne%20OR%20JBSS32&hl=pt-BR&gl=BR&ceid=BR:pt

@@ -3,7 +3,7 @@ import { useRef } from 'react';
 // Брифінг конкурентів — без змін: той самий competitor_brief.html, що й раніше, всередині вкладки.
 export function CompetitorsPage() {
   const frame = useRef(null);
-  const src = `${process.env.PUBLIC_URL || '.'}/competitor_brief.html`;
+  const src = `${import.meta.env.BASE_URL}competitor_brief.html`;
   const fit = () => {
     try {
       const doc = frame.current.contentDocument;

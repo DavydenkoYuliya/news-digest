@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 """Трек новин по конкурентах — як competitor_digest.py, без змін логіки відбору.
-Сутності, категорії подій і фільтри шуму — regex (без AI). Єдина відмінність: переклад
-заголовків і описів робить той самий AI (замість неофіційної бібліотеки translators)."""
+Компанії, бренди, профілі й категорії подій — у competitors.yaml (regex, без AI).
+Загальні фільтри біржового шуму — нижче в цьому файлі. Переклад заголовків і описів
+робить той самий AI (замість неофіційної бібліотеки translators)."""
 import datetime as dt
 import re
+
+import yaml
 
 try:
     from langdetect import detect
@@ -12,19 +15,33 @@ except Exception:
         return "unknown"
 
 from . import prompts, rss
-from .competitors_config import COMPETITORS, EVENT_CATEGORIES, RELEVANCE_SCORE_MAP
-from .config import path
+from .config import ROOT, path
 from .llm import LLMError
 from .log import log
 
-DOMAIN_LABELS = {
-    "pilgrims": "Pilgrim's",
-    "tyson": "Tyson",
-    "brf": "BRF",
-    "ldc_groupe": "LDC",
-    "louis_dreyfus": "Louis Dreyfus",
-    "jbs": "JBS",
-}
+COMPETITORS_FILE = ROOT / "competitors.yaml"
+
+
+def load_competitors(p=COMPETITORS_FILE):
+    """competitors.yaml → (виробники, категорії подій, оцінки релевантності)."""
+    data = yaml.safe_load(p.read_text(encoding="utf-8"))
+    producers = data["producers"]
+    for prod in producers.values():
+        for ent in prod["entities"]:
+            for field in ("ticker", "country", "parent_company"):
+                ent[field] = str(ent.get(field) or "")
+    # слова англійською, потім португальською і французькою — порядок як у попередній версії
+    events = {cat: langs.get("en", []) + langs.get("pt", []) + langs.get("fr", [])
+              for cat, langs in data["event_categories"].items()}
+    return producers, events, data["relevance_scores"]
+
+
+COMPETITORS, EVENT_CATEGORIES, RELEVANCE_SCORE_MAP = load_competitors()
+
+
+def published() -> list[str]:
+    """Ключі виробників з publish: true — у порядку файлу (= порядок у брифінгу)."""
+    return [k for k, v in COMPETITORS.items() if v.get("publish")]
 
 
 def match_entities(text_l: str, entities: list) -> list:
@@ -286,7 +303,7 @@ def collect_competitor(cfg: dict, producer_key: str, days: int) -> list[dict]:
                     "parent_company": ent.get("parent_company", ""), "entity_country": ent.get("country", ""),
                     "event_category": event_category, "relevance": relevance,
                     "ai_score": RELEVANCE_SCORE_MAP.get(relevance, 3),
-                    "ai_domain": DOMAIN_LABELS.get(producer_key, comp.get("holding", comp["display_name"])),
+                    "ai_domain": comp["label"],
                     "ai_category": "", "ai_country": "", "ai_commodity": "",
                     "producer": producer_key,
                 })
@@ -340,7 +357,7 @@ def translate(llm, rows: list[dict], batch_size: int = 20):
 def collect_all(llm, cfg: dict) -> dict[str, list[dict]]:
     c = cfg["competitors"]
     result = {}
-    for key in c["publish"]:
+    for key in published():
         rows = collect_competitor(cfg, key, int(c["days"]))
         result[key] = translate(llm, rows)
     return result

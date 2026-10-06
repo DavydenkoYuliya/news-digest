@@ -6,9 +6,6 @@
 #         Aidells, IBP
 # =====================================================
 
-# --- SEC EDGAR (Atom-фід, не блокується як HTML-браузинг) ---
-https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000100493&type=&dateb=&owner=include&count=40&output=atom
-
 # --- Google News: емітент/корпоративний рівень ---
 https://news.google.com/rss/search?q=%22Tyson+Foods%22&hl=en-US&gl=US&ceid=US:en
 https://news.google.com/rss/search?q=%22Tyson+Foods%22+NYSE%3ATSN&hl=en-US&gl=US&ceid=US:en

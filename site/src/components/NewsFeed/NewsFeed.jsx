@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { NewsCard } from './NewsCard';
 import { getDateBoundaries, formatDateShort, formatDateLong } from '../../utils/dateUtils';
 
-export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onToggleSave, highlight }) {
+export function NewsFeed({ news, loading, filters, setFilter, highlight }) {
   const [prevOpen, setPrevOpen] = useState({ d1: true, d2: true });
 
   if (loading) {
@@ -68,7 +68,7 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
         {pinned && (
           <div className="pinned-ref">
             <div className="prev-header"><span className="prev-date">Новина з довідки (старша за 3 доби)</span></div>
-            <NewsCard item={pinned} saved={isBookmarked(pinned.id)} onToggleSave={onToggleSave} highlight={highlight} />
+            <NewsCard item={pinned} highlight={highlight} />
           </div>
         )}
         {todayNews.length === 0 && (
@@ -78,8 +78,6 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
           <NewsCard
             key={item.id}
             item={item}
-            saved={isBookmarked(item.id)}
-            onToggleSave={onToggleSave}
             highlight={highlight}
           />
         ))}
@@ -91,8 +89,6 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
             news={yestNews}
             open={prevOpen.d1}
             onToggle={() => setPrevOpen(p => ({ ...p, d1: !p.d1 }))}
-            isBookmarked={isBookmarked}
-            onToggleSave={onToggleSave}
             highlight={highlight}
           />
           <PrevSection
@@ -100,8 +96,6 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
             news={day2News}
             open={prevOpen.d2}
             onToggle={() => setPrevOpen(p => ({ ...p, d2: !p.d2 }))}
-            isBookmarked={isBookmarked}
-            onToggleSave={onToggleSave}
             highlight={highlight}
           />
         </div>
@@ -110,7 +104,7 @@ export function NewsFeed({ news, loading, filters, setFilter, isBookmarked, onTo
   );
 }
 
-function PrevSection({ label, news, open, onToggle, isBookmarked, onToggleSave, highlight }) {
+function PrevSection({ label, news, open, onToggle, highlight }) {
   const plural = (n) => {
     if (n % 10 === 1 && n % 100 !== 11) return 'новина';
     if (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) return 'новини';
@@ -130,8 +124,6 @@ function PrevSection({ label, news, open, onToggle, isBookmarked, onToggleSave, 
             <NewsCard
               key={item.id}
               item={item}
-              saved={isBookmarked(item.id)}
-              onToggleSave={onToggleSave}
               highlight={highlight}
             />
           ))}

@@ -154,6 +154,6 @@ def build_all(llm, cfg: dict, items: list[dict], period: str) -> list[dict]:
             for c_ in tax["categories"] if c_ != "Всі категорії"]
     cats.append(entry("cat:Всі категорії", "Без категорії («Всі категорії»)", "list",
                       [r for r in items if in_cat(r, "Всі категорії")]))
-    doms = [entry(f"dom:{k}", v, "dom", [r for r in items if r.get("ai_domain") == k])
+    doms = [entry(f"dom:{k}", v["name"], "dom", [r for r in items if r.get("ai_domain") == k])
             for k, v in tax["domains"].items() if k != "не_релевантно"]
     return [{"group": "Категорії закупівель", "entries": cats}, {"group": "Напрями", "entries": doms}]

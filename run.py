@@ -18,6 +18,8 @@ from digest.log import log
 from digest.llm import LLM, LLMError
 from digest.store import Store
 
+SCHEMA_VERSION = 2  # версія формату digest.json (1 — перша версія, без цього поля)
+
 
 def parse_args(argv=None):
     ap = argparse.ArgumentParser(description="AI Дайджест новин — нічний запуск")
@@ -131,7 +133,7 @@ def main(argv=None) -> int:
     comp_rows = {}
     if cfg["competitors"].get("enabled", True) and not args.no_competitors:
         comp_rows = competitors.collect_all(llm, cfg)
-        combined += [r for key in cfg["competitors"]["publish"] for r in comp_rows.get(key, [])]
+        combined += [r for key in competitors.published() for r in comp_rows.get(key, [])]
     combined.sort(key=lambda r: -int(r.get("ai_score") or 0))
     combined, n = dedup.drop_similar_summaries(combined)
     log(f"Дедуплікація за AI-резюме: видалено {n}, залишилось {len(combined)}")
@@ -156,12 +158,14 @@ def main(argv=None) -> int:
                               int(cfg["today"]["procurement_items"]))
 
     # 7. Файл для сайту
+    # Формат файлу описаний у README («Файл даних сайту»); при несумісних змінах — збільшити SCHEMA_VERSION.
     store.write_digest({
+        "schema_version": SCHEMA_VERSION,
         "generated": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
         "period": period,
         "model": llm.model,
         "prompt_version": category_briefs.prompt_version(),
-        "domain_labels": cfg["taxonomy"]["domains"],
+        "domains": cfg["taxonomy"]["domains"],
         "min_news": int(cfg["category_briefs"]["min_news"]),
         "items": [site_item(r, r["n"]) for r in combined],
         "market": market,

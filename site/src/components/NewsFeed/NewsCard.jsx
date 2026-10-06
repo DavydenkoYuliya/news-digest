@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { getScoreClass, getDomainKey, capitalize, cleanSource, firstCountries } from '../../utils/constants';
+import { getScoreClass, capitalize, cleanSource, firstCountries } from '../../utils/constants';
 import { formatTime, formatDateShort } from '../../utils/dateUtils';
 
 const DOMAIN_ICONS = {
@@ -36,31 +36,56 @@ const DOMAIN_ICONS = {
       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
     </svg>
   ),
+  prices: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/>
+      <path d="M7 7h.01"/>
+    </svg>
+  ),
+  trade: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 014-4h14"/>
+      <polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 01-4 4H3"/>
+    </svg>
+  ),
+  weather: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M20 16.58A5 5 0 0018 7h-1.26A8 8 0 104 15.25"/>
+      <path d="M8 19v2M8 13v2M16 19v2M16 13v2M12 21v2M12 15v2"/>
+    </svg>
+  ),
+  health: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v6M9 11h6"/>
+    </svg>
+  ),
+  strike: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+      <path d="M12 9v4M12 17h.01"/>
+    </svg>
+  ),
+  other: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <circle cx="12" cy="12" r="10"/><path d="M8 12h8"/>
+    </svg>
+  ),
 };
 
-const StarEmpty = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-  </svg>
-);
-const StarFull = () => (
-  <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2">
-    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-  </svg>
-);
 const InfoIcon = () => (
   <svg className="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
     <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
   </svg>
 );
 
-export function NewsCard({ item, saved, onToggleSave, highlight }) {
+export function NewsCard({ item, highlight }) {
   const [showDetails, setShowDetails] = useState(false);
   const rowRef = useRef(null);
   const isTarget = highlight != null && highlight === item.n;
   useEffect(() => { if (isTarget && rowRef.current) rowRef.current.scrollIntoView({ block: 'center' }); }, [isTarget]);
-  const domainKey = item.domainKey || getDomainKey(item.domain);
-  const icon = DOMAIN_ICONS[domainKey] || DOMAIN_ICONS.geo;
+  // іконка напряму задається в config.yaml (taxonomy.domains); невідома назва → «other»
+  const domainKey = DOMAIN_ICONS[item.domainKey] ? item.domainKey : 'other';
+  const icon = DOMAIN_ICONS[domainKey];
   const scoreClass = getScoreClass(item.score);
   const timeStr = item.date ? formatTime(item.date) : '';
   const dateStr = item.date ? formatDateShort(item.date) : '';
@@ -86,18 +111,8 @@ export function NewsCard({ item, saved, onToggleSave, highlight }) {
     </div>
   );
 
-  const saveBtn = (
-    <button
-      className={`save-btn${saved ? ' saved' : ''}`}
-      title={saved ? 'Збережено' : 'Зберегти'}
-      onClick={() => onToggleSave(item)}
-    >
-      {saved ? <StarFull /> : <StarEmpty />}
-    </button>
-  );
-
   return (
-    <div ref={rowRef} id={item.n ? `news-${item.n}` : undefined} className={`news-row${saved ? ' saved' : ''}${isTarget ? ' flash' : ''}`}>
+    <div ref={rowRef} id={item.n ? `news-${item.n}` : undefined} className={`news-row${isTarget ? ' flash' : ''}`}>
 
       {/* ── LEFT COLUMN: icon + (mobile) score, meta, save ── */}
       <div className="card-left">
@@ -148,14 +163,6 @@ export function NewsCard({ item, saved, onToggleSave, highlight }) {
               <span key={i} className="tag">{t}</span>
             ))}
           </div>
-          {/* Star visible only on mobile */}
-          <button
-            className={`save-btn save-btn-mob${saved ? ' saved' : ''}`}
-            title={saved ? 'Збережено' : 'Зберегти'}
-            onClick={() => onToggleSave(item)}
-          >
-            {saved ? <StarFull /> : <StarEmpty />}
-          </button>
         </div>
 
         {/* Shown only on desktop */}
@@ -169,7 +176,6 @@ export function NewsCard({ item, saved, onToggleSave, highlight }) {
             </div>
           </div>
           {metaBlock}
-          {saveBtn}
         </div>
       </div>
 
