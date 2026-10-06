@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { capitalize } from '../../utils/constants';
 
-export function Sidebar({ filters, options, setFilter, toggleMulti, setMulti, reset, totalCount, inDrawer }) {
+export function Sidebar({ filters, options, setFilter, toggleMulti, setMulti, reset, totalCount, inDrawer, domainLabels }) {
   const { search, minScore, domains, categories, countries, commodities } = filters;
 
   const scorePercent = ((minScore - 1) / 9) * 100;
@@ -46,8 +46,9 @@ export function Sidebar({ filters, options, setFilter, toggleMulti, setMulti, re
         </div>
 
         <FilterGroup
-          label="Домен"
+          label="Напрям"
           options={options.domains}
+          labels={domainLabels}
           selected={domains}
           onToggle={v => toggleMulti('domains', v)}
           onSetAll={vals => setMulti('domains', vals)}
@@ -86,12 +87,14 @@ export function Sidebar({ filters, options, setFilter, toggleMulti, setMulti, re
   return <div className="sidebar">{inner}</div>;
 }
 
-function FilterGroup({ label, options, selected, onToggle, onSetAll, onClearAll, capitalizeVal }) {
+// labels — назви для показу замість службових ключів (напрями: ключ → назва з config.yaml)
+function FilterGroup({ label, options, selected, onToggle, onSetAll, onClearAll, capitalizeVal, labels }) {
   const [q, setQ] = useState('');
+  const shown = (val) => (labels && labels[val]) || (capitalizeVal ? capitalize(val) : val);
   if (!options || options.length === 0) return null;
 
   const visible = q.trim()
-    ? options.filter(([val]) => val.toLowerCase().includes(q.toLowerCase()))
+    ? options.filter(([val]) => shown(val).toLowerCase().includes(q.toLowerCase()))
     : options;
 
   const visibleVals = visible.map(([val]) => val);
@@ -149,7 +152,7 @@ function FilterGroup({ label, options, selected, onToggle, onSetAll, onClearAll,
               checked={selected.includes(val)}
               onChange={() => onToggle(val)}
             />
-            {capitalizeVal ? capitalize(val) : val}
+            {shown(val)}
             <span className="chk-count">{cnt}</span>
           </label>
         ))}

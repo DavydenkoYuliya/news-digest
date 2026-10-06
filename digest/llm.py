@@ -64,7 +64,7 @@ class LLM:
             try:
                 import openai
             except ImportError as e:
-                raise LLMError("Для openai/azure встановіть пакет: pip install openai") from e
+                raise LLMError("Для openai/azure встановіть пакет: pip install openai==2.54.0") from e
             if not key:
                 raise LLMError("Не задано LLM_API_KEY у .env")
             if self.provider == "openai":

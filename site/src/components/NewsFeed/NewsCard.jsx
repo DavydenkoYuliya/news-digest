@@ -158,7 +158,7 @@ export function NewsCard({ item, highlight }) {
 
         <div className="row-bottom">
           <div className="row-tags">
-            <span className="tag tag-domain">{capitalize(item.domain)}</span>
+            <span className="tag tag-domain">{item.domainName || capitalize(item.domain)}</span>
             {extraTags.map((t, i) => (
               <span key={i} className="tag">{t}</span>
             ))}

@@ -1,8 +1,9 @@
-anthropic>=1,<2
+# Точні версії — ті, на яких перевірено щоденний запуск. Оновлювати свідомо, після пробного запуску.
+anthropic==1.11.0
 beautifulsoup4==4.14.3
 feedparser==6.0.12
 langdetect==1.0.9
 python-dateutil==2.9.0.post0
-PyYAML>=6,<7
-# лише якщо LLM_PROVIDER=openai або azure:
-# openai>=1,<3
+PyYAML==6.0.3
+# лише якщо LLM_PROVIDER=openai або azure (ще не перевірено в роботі):
+# openai==2.54.0

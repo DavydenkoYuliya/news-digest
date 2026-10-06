@@ -31,6 +31,7 @@ function applyFilters(news, filters, skip = []) {
       n.source.toLowerCase().includes(q) ||
       n.country.toLowerCase().includes(q) ||
       n.domain.toLowerCase().includes(q) ||
+      (n.domainName || '').toLowerCase().includes(q) ||
       n.category.toLowerCase().includes(q) ||
       n.commodity.toLowerCase().includes(q)
     );

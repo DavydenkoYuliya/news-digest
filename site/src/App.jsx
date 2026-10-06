@@ -44,7 +44,8 @@ function App() {
     filters.commodities.length,
   ].reduce((a, b) => a + b, 0);
 
-  const sidebarProps = { filters, options, setFilter, toggleMulti, setMulti, reset, totalCount: filtered.length };
+  const sidebarProps = { filters, options, setFilter, toggleMulti, setMulti, reset, totalCount: filtered.length,
+                         domainLabels: meta.domainLabels || {} };
 
   return (
     <div className="app">

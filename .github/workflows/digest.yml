@@ -8,7 +8,9 @@ on:
   workflow_dispatch:          # ручний запуск з GitHub
 
 permissions:
-  contents: write   # зберегти щоденні файли даних і опублікувати сайт у гілку gh-pages
+  contents: write   # зберегти щоденні файли даних у репозиторії
+  pages: write      # опублікувати сайт (GitHub Pages)
+  id-token: write   # потрібен офіційній публікації GitHub Pages
 
 concurrency:
   group: digest
@@ -18,6 +20,9 @@ jobs:
   digest:
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     env:
       PYTHONUNBUFFERED: "1"
       LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
@@ -25,16 +30,16 @@ jobs:
       LLM_API_KEY: ${{ secrets.LLM_API_KEY || secrets.ANTHROPIC_API_KEY }}
       AZURE_OPENAI_ENDPOINT: ${{ vars.AZURE_OPENAI_ENDPOINT }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.12'
 
       - name: Встановити залежності
         run: |
           pip install -r requirements.txt
-          if [ "$LLM_PROVIDER" != "anthropic" ]; then pip install "openai>=1,<3"; fi
+          if [ "$LLM_PROVIDER" != "anthropic" ]; then pip install "openai==2.54.0"; fi
 
       - name: Перевірки (без AI)
         run: python -m unittest discover tests
@@ -48,9 +53,11 @@ jobs:
           git config user.name "GitHub Actions"
           git add -A site/public/data site/public/competitor_brief.html
           git diff --cached --quiet || git commit -m "Дані $(date +%Y-%m-%d)"
+          # якщо під час запуску хтось змінив налаштування в репозиторії — спершу підтягнути їх
+          git pull --rebase origin "$GITHUB_REF_NAME"
           git push
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
 
@@ -60,8 +67,10 @@ jobs:
           npm ci
           npm run build
 
-      # Публікація так само, як і раніше: у гілку gh-pages (налаштування Pages змінювати не треба)
-      - uses: peaceiris/actions-gh-pages@v4
+      # Публікація офіційними кроками GitHub. Settings → Pages → Source: «GitHub Actions».
+      - uses: actions/configure-pages@v6
+      - uses: actions/upload-pages-artifact@v5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site/build
+          path: site/build
+      - id: deployment
+        uses: actions/deploy-pages@v5

@@ -23,6 +23,7 @@ function toNews(it, domains) {
     detailed: it.detailed || '',
     domain: it.domain || '',
     domainKey: (domains[it.domain] && domains[it.domain].icon) || 'other',
+    domainName: (domains[it.domain] && domains[it.domain].name) || it.domain || '',
     category: it.category || '',
     country: it.country || '',
     commodity: it.commodity || '',
