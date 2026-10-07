@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-"""Трек новин по конкурентах — як competitor_digest.py, без змін логіки відбору.
+"""Трек новин по конкурентах.
 Компанії, бренди, профілі й категорії подій — у competitors.yaml (regex, без AI).
 Загальні фільтри біржового шуму — нижче в цьому файлі. Переклад заголовків і описів
-робить той самий AI (замість неофіційної бібліотеки translators)."""
+робить AI через llm.py."""
 import datetime as dt
 import re
 
@@ -30,7 +30,7 @@ def load_competitors(p=COMPETITORS_FILE):
         for ent in prod["entities"]:
             for field in ("ticker", "country", "parent_company"):
                 ent[field] = str(ent.get(field) or "")
-    # слова англійською, потім португальською і французькою — порядок як у попередній версії
+    # слова англійською, потім португальською і французькою
     events = {cat: langs.get("en", []) + langs.get("pt", []) + langs.get("fr", [])
               for cat, langs in data["event_categories"].items()}
     return producers, events, data["relevance_scores"]
@@ -328,7 +328,7 @@ TRANSLATE_SCHEMA = {
 
 
 def translate(llm, rows: list[dict], batch_size: int = 20):
-    """Заповнює title_uk/summary_uk; як і раніше, ai_summary = заголовок, ai_detailed = опис."""
+    """Заповнює title_uk/summary_uk; ai_summary = заголовок, ai_detailed = опис."""
     todo = [r for r in rows if r.get("lang_detected") != "uk"]
     for r in rows:
         if r.get("lang_detected") == "uk":

@@ -1,5 +1,5 @@
 # =====================================================
-# ФІДИ ДЛЯ competitor_digest.py --producer brf
+# ДЖЕРЕЛА: конкурент brf (див. competitors.yaml)
 # Емітент: BRF S.A. (NYSE: BRFS, CIK 1122491) → з 09.2025 у складі
 #   MBRF Global Foods Company (B3: MBRF3, злиття Marfrig+BRF)
 # Бренди: Sadia, Perdigão, Qualy, Perdix, Banvit (TR), Kidelli

@@ -1,5 +1,5 @@
 # =====================================================
-# ФІДИ ДЛЯ competitor_digest.py --producer pilgrims
+# ДЖЕРЕЛА: конкурент pilgrims (див. competitors.yaml)
 # Сутності: Pilgrim's Pride Corporation, Pilgrim's UK, Pilgrim's Food
 # Masters, Moy Park, Pilgrim's Mexico, JBS (тільки в контексті PPC)
 # =====================================================

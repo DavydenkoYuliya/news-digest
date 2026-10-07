@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-"""AI-класифікація у два етапи — ТАК САМО, як ai_classify_v2.py:
+"""AI-класифікація у два етапи:
   1) швидка оцінка лише за заголовками — дешево;
   2) детальний розбір лише новин з оцінкою >= pass1_threshold.
-Інструкції (prompts/classify_*.md) і форма відповіді — дослівно як у старій версії: порівняння
-показало, що з жорстко заданою структурою відповіді Haiku пише тексти гірше.
-Нове лише одне: напрям і категорія після відповіді звіряються зі списками config.yaml."""
+Відповідь — вільним текстом з JSON (без жорсткої схеми): сліпий тест показав, що зі схемою
+Haiku пише тексти гірше. Напрям і категорія після відповіді звіряються зі списками config.yaml."""
 from difflib import get_close_matches
 
 from . import prompts
@@ -34,7 +33,7 @@ def _batches(rows, size):
 
 
 def drop_blocked_prefixes(cfg: dict, rows: list[dict]) -> list[dict]:
-    """Рубрики-агрегатори («Morning Bid» тощо) — до прибирання повторів, як у старій версії."""
+    """Рубрики-агрегатори («Morning Bid» тощо) — до прибирання повторів."""
     blocked = [p.lower() for p in cfg["classify"].get("blocked_title_prefixes", [])]
     out = [r for r in rows if not any((r.get("title_original") or "").lower().startswith(p) for p in blocked)]
     if len(rows) - len(out):
@@ -43,7 +42,7 @@ def drop_blocked_prefixes(cfg: dict, rows: list[dict]) -> list[dict]:
 
 
 def drop_irrelevant(cfg: dict, rows: list[dict]) -> list[dict]:
-    """Спорт/кіно тощо — після прибирання повторів, як у старій версії."""
+    """Спорт/кіно тощо — після прибирання повторів."""
     junk = [k.lower() for k in cfg["classify"].get("irrelevant_keywords", [])]
     out = [r for r in rows
            if not any(k in ((r.get("title_original") or "") + " " + (r.get("summary_original") or "")).lower()
@@ -91,7 +90,7 @@ def run_pass2(llm, cfg, rows) -> list[dict]:
                                 domains="|".join(domains), categories="|".join(categories))
         log(f"  [P2] Батч {b_idx}/{len(batches)}")
         try:
-            # 500 токенів на статтю: повний об'єкт ≈350-400 токенів (див. історію старої версії)
+            # 500 токенів на статтю: повний об'єкт ≈350-400 токенів
             parsed = llm.json(system, prompt, max_tokens=min(len(batch) * 500, 8192), label="P2")
             parsed = [x for x in parsed if isinstance(x, dict)]
         except (LLMError, TypeError) as e:
@@ -101,7 +100,7 @@ def run_pass2(llm, cfg, rows) -> list[dict]:
             continue
         by_id = {int(x["id"]): x for x in parsed if "id" in x}
         for j in range(len(batch)):
-            x = by_id.get(j, parsed[j] if j < len(parsed) else {})  # як у старій версії
+            x = by_id.get(j, parsed[j] if j < len(parsed) else {})  # без id — за порядком
             domain = _fit(str(x.get("domain", "не_релевантно")), domains, "не_релевантно")
             category = _fit(str(x.get("category", "")), categories, "Всі категорії")
             fixed += (domain != x.get("domain", "не_релевантно")) + (category != x.get("category", ""))

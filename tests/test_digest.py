@@ -76,7 +76,7 @@ class DedupTest(unittest.TestCase):
 
 
 class CompetitorsTest(unittest.TestCase):
-    """Фільтри шуму конкурентів мають поводитися так само, як у старій версії."""
+    """Фільтри шуму конкурентів."""
     def test_noise(self):
         self.assertTrue(competitors.is_market_noise_title("Tyson Foods stock price today"))
         self.assertTrue(competitors.is_market_noise_title("Vanguard Group LLC buys shares of Tyson Foods"))
@@ -85,7 +85,7 @@ class CompetitorsTest(unittest.TestCase):
     def test_event_category(self):
         self.assertIn("M&A", competitors.classify_event_category("jbs announces acquisition of plant"))
 
-    def test_brief_html_unchanged_structure(self):
+    def test_brief_html_structure(self):
         html = competitor_brief.render_html(
             [{"company": "JBS", "profile": {"Штаб-квартира": "Бразилія"}, "trend": "up", "headline": "Заголовок",
               "bullets": ["пункт"], "events": [{"date": "2026-10-01", "headline": "подія", "category": "фінанси",

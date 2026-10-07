@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Збір загальних новин з RSS (поведінка як у news_digest_all 1.py, без regex-«сигналів» і перекладу —
-їхній результат ніде не використовувався)."""
+"""Збір загальних новин з RSS."""
 import datetime as dt
 from collections import defaultdict
 
@@ -36,7 +35,7 @@ def collect_news(cfg: dict, days: int) -> list[dict]:
             if not e["link"]:
                 continue
             pub = e["pub"] or now          # без дати — вважаємо свіжою, щоб не губити новину
-            if pub < cutoff or pub > now:  # майбутні дати відкидались і в старій версії
+            if pub < cutoff or pub > now:  # дата в майбутньому — помилка джерела
                 continue
             key = rss.canonicalize_url(e["link"])
             if key in seen:

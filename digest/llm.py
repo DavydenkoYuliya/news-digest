@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """Єдина точка звернення до AI. Провайдер обирається в .env (LLM_PROVIDER):
-  anthropic — Claude (за замовчуванням, як у поточній версії)
+  anthropic — Claude (за замовчуванням)
   openai    — OpenAI API
   azure     — Azure OpenAI
 Решта коду викликає лише LLM.json(...) і не знає, який провайдер працює."""
@@ -58,7 +58,7 @@ class LLM:
             if not key:
                 raise LLMError("Не задано LLM_API_KEY у .env")
             # max_retries=1: власний цикл повторів нижче; два стеки повторів
-            # множили оплачені генерації (див. історію ai_classify_v2.py).
+            # множили б оплачені генерації.
             self.client = anthropic.Anthropic(api_key=key, timeout=timeout, max_retries=1)
         elif self.provider in ("openai", "azure"):
             try:
@@ -82,7 +82,7 @@ class LLM:
     def json(self, system: str, prompt: str, max_tokens: int, schema: dict | None = None,
              attempts: int = 3, label: str = ""):
         """Повертає розібраний JSON. schema — JSON Schema об'єкта (структурована відповідь);
-        без schema модель відповідає текстом, з якого ми дістаємо JSON (як у старій версії)."""
+        без schema модель відповідає текстом, з якого ми дістаємо JSON."""
         last = None
         for attempt in range(1, attempts + 1):
             try:

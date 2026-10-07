@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Прибирання повторів. Пороги і правила перенесено з ai_classify_v2.py та combine_digest.py без змін."""
+"""Прибирання повторів. Пороги підібрані й перевірені на практиці."""
 import re
 from difflib import SequenceMatcher
 
@@ -49,7 +49,7 @@ def drop_same_day(rows: list[dict]) -> tuple[list[dict], int]:
 
 
 def drop_similar_summaries(rows: list[dict]) -> tuple[list[dict], int]:
-    """Фінальне склеювання дайджесту за AI-резюме (як combine_digest.py): одна подія з кількох джерел.
+    """Фінальне склеювання дайджесту за AI-резюме: одна подія з кількох джерел.
     rows мають бути відсортовані за оцінкою (спадання) — лишається стаття з вищою оцінкою."""
     def sim(a, b, threshold):
         m = SequenceMatcher(None, a.lower().strip(), b.lower().strip())

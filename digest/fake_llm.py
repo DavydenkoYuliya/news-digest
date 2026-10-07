@@ -22,7 +22,7 @@ class FakeLLM:
         self.usage.add(len(prompt) // 4, 50)
         props = (schema or {}).get("properties", {})
         numbered = [b for b in re.split(r"\n(?=\d+\. )", prompt) if re.match(r"\d+\. ", b)]
-        if prompt.startswith("Оціни кожну з"):  # 2-й етап класифікації — масив, як у старій версії
+        if prompt.startswith("Оціни кожну з"):  # 2-й етап класифікації — масив
             out = []
             for i, b in enumerate(numbered):
                 m = re.search(r"Заголовок: (.*)", b)

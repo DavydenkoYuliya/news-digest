@@ -1,5 +1,5 @@
 # =====================================================
-# ФІДИ ДЛЯ competitor_digest.py --producer ldc_groupe
+# ДЖЕРЕЛА: конкурент ldc_groupe (див. competitors.yaml)
 # Groupe LDC / L.D.C. S.A. — №1 з птиці у Франції/Європі (Euronext: LOUP)
 # Бренди: Le Gaulois, Maître CoQ, Loué, Marie, Le Fleuron, Bio Bresse
 # Мова: переважно французька. УВАГА: "LDC" плутається з Louis Dreyfus — тому

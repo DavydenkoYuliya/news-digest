@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""AI Дайджест новин — нічний запуск. Одна команда замість 7 скриптів:
+"""AI Дайджест новин — нічний запуск, одна команда:
 
     python run.py               звичайний запуск (збір → AI → конкуренти → довідки → файли для сайту)
     python run.py --dry-run     перевірка без ключа і без витрат (AI імітується)
@@ -26,7 +26,7 @@ def parse_args(argv=None):
     ap.add_argument("--dry-run", action="store_true", help="без AI: перевірка, що конвеєр працює")
     ap.add_argument("--config", help="інший файл налаштувань замість config.yaml")
     ap.add_argument("--days", type=int, help="за скільки діб збирати новини (за замовчуванням — з останнього запуску)")
-    ap.add_argument("--input-csv", help="взяти вже зібрані новини з CSV (формат старої версії) замість RSS")
+    ap.add_argument("--input-csv", help="взяти вже зібрані новини з CSV (колонки як у щоденних файлах: date_published_utc, source, title_original, summary_original, url) замість RSS")
     ap.add_argument("--data-dir", help="куди писати результат (за замовчуванням — папка даних сайту)")
     ap.add_argument("--no-competitors", action="store_true", help="пропустити трек і брифінг конкурентів")
     ap.add_argument("--no-briefs", action="store_true", help="пропустити довідки по категоріях")
@@ -35,7 +35,7 @@ def parse_args(argv=None):
 
 
 def collection_days(store: Store, cfg: dict, today_: dt.date, forced: int | None) -> int:
-    """Збираємо лише нові дні з моменту останнього запуску (1..7), як у поточному workflow."""
+    """Збираємо лише нові дні з моменту останнього запуску (1..7)."""
     if forced:
         return forced
     last = store.latest_day()
@@ -57,7 +57,7 @@ def site_item(row: dict, n: int) -> dict:
         "section": "competitor" if competitor else "news",
         "date": date.replace(" ", "T") + "Z" if date else "",
         "source": row.get("source", ""),
-        # як у combine_digest.py: заголовок на сайті = AI-резюме (або переклад/оригінал)
+        # заголовок на сайті = AI-резюме (або переклад/оригінал)
         "title": row.get("ai_summary") or row.get("title_uk") or row.get("title_original", ""),
         "summary": row.get("ai_summary", ""),
         "detailed": row.get("ai_detailed", ""),
@@ -106,7 +106,7 @@ def main(argv=None) -> int:
         days = collection_days(store, cfg, today_, args.days)
         raw = collect.collect_news(cfg, days)
 
-    # 2. Прибирання повторів і шуму (порядок як у старій версії)
+    # 2. Прибирання повторів і шуму
     rows = classify.drop_blocked_prefixes(cfg, raw)
     if not args.no_prev_dedup:
         d = cfg["dedup"]
@@ -128,7 +128,7 @@ def main(argv=None) -> int:
     store.save_daily(today_, classified)
     log(f"AI на класифікацію: {llm.usage}")
 
-    # 4. Зведення за 3 останні дні + конкуренти, одна подія — один рядок (як combine_digest.py)
+    # 4. Зведення за 3 останні дні + конкуренти, одна подія — один рядок
     combined = [r for _, day_rows in store.last_days(3) for r in day_rows]
     comp_rows = {}
     if cfg["competitors"].get("enabled", True) and not args.no_competitors:
@@ -140,7 +140,7 @@ def main(argv=None) -> int:
     for i, r in enumerate(combined, 1):
         r["n"] = i
 
-    # 5. Брифінг конкурентів — без змін
+    # 5. Брифінг конкурентів
     highlights = []
     if comp_rows:
         html, highlights = competitor_brief.build(llm, comp_rows, int(cfg["competitors"]["days"]))

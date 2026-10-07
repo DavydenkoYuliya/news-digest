@@ -1,5 +1,5 @@
 # =====================================================
-# ФІДИ ДЛЯ competitor_digest.py --producer tyson
+# ДЖЕРЕЛА: конкурент tyson (див. competitors.yaml)
 # Емітент: Tyson Foods, Inc. (NYSE: TSN), CIK 0000100493
 # Сегменти: Chicken, Beef, Pork, Prepared Foods, International/Other
 # Бренди: Tyson, Jimmy Dean, Hillshire Farm, Ball Park, Wright, State Fair,

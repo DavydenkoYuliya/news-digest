@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Читання RSS — спільне для загальних новин і конкурентів.
-Логіка перенесена з news_digest_all 1.py / competitor_digest.py без змін поведінки."""
+"""Читання RSS — спільне для загальних новин і конкурентів."""
 import datetime as dt
 import re
 import socket

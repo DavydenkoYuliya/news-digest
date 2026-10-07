@@ -1,5 +1,5 @@
 # =====================================================
-# ФІДИ ДЛЯ competitor_digest.py --producer louis_dreyfus
+# ДЖЕРЕЛА: конкурент louis_dreyfus (див. competitors.yaml)
 # Louis Dreyfus Company (LDC) — глобальний ABCD-трейдер агросировини
 # Лінії: Grains & Oilseeds, Sugar, Coffee, Juice, Cotton, Rice, Freight
 # 45% — ADQ (Абу-Дабі, з 2021). Приватна (облігації). Мова: англ.+глобальна.

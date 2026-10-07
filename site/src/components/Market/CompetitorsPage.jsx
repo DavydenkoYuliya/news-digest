@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 
-// Брифінг конкурентів — без змін: той самий competitor_brief.html, що й раніше, всередині вкладки.
+// Брифінг конкурентів: готова сторінка competitor_brief.html всередині вкладки.
 export function CompetitorsPage() {
   const frame = useRef(null);
   const src = `${import.meta.env.BASE_URL}competitor_brief.html`;

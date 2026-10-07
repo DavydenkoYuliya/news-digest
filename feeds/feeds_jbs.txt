@@ -1,5 +1,5 @@
 # =====================================================
-# ФІДИ ДЛЯ competitor_digest.py --producer jbs
+# ДЖЕРЕЛА: конкурент jbs (див. competitors.yaml)
 # JBS N.V. / JBS S.A. — найбільша мʼясна компанія світу (NYSE: JBS, B3: JBSS32)
 # CIK 1791942. Сегменти: Brazil, Seara, Beef N.A., Pork USA, Pilgrim's, Australia
 # Бренди: Seara(птиця/свинина), Friboi, Swift, Maturatta, Moy Park, Primo, Huon
