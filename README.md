@@ -101,7 +101,7 @@ npm test                    # перевірка сайту
 
 | Для чого | Адреси |
 |---|---|
-| Джерела новин | `news.google.com` (262 з 269 стрічок), `oilprice.com`, `gcaptain.com`, `marinelink.com`, `railfreight.com`, `trans.info`, `severe-weather.eu`, `woah.org` |
+| Джерела новин | `news.google.com` (245 з 252 стрічок), `oilprice.com`, `gcaptain.com`, `marinelink.com`, `railfreight.com`, `trans.info`, `severe-weather.eu`, `woah.org` |
 | AI | `api.anthropic.com` (для `openai` — `api.openai.com`, для `azure` — ваш `*.openai.azure.com`) |
 | Лише варіант B, під час встановлення | `pypi.org`, `files.pythonhosted.org`, `registry.npmjs.org` |
 
@@ -126,7 +126,7 @@ npm test                    # перевірка сайту
 
 - **Перевірено лише на Claude** — див. «Вибір AI».
 - AI-тексти іноді мають мовні огріхи. Числа, валюти й посилання на джерела перевіряються автоматично, стиль — ні.
-- 262 з 269 стрічок — запити до Google News. Якщо Google обмежить запити з серверів (GitHub чи корпоративних), новин стане значно менше.
+- 245 з 252 стрічок — запити до Google News: у Reuters, Bloomberg та галузевих платних видань немає відкритих RSS, а прямий парсинг їхніх сайтів заблокований. Повного тексту статей немає — лише заголовок і фрагмент. Якщо Google обмежить запити з серверів (GitHub чи корпоративних), новин стане значно менше.
 - Розклад GitHub Actions може запізнюватися на кілька годин; дані готові «до початку робочого дня».
 
 ## Файл даних сайту (`digest.json`)
