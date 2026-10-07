@@ -83,7 +83,7 @@ flowchart TD
     T --> U["12. Публікація (GitHub Pages)"]
 ```
 
-Деталі «чому саме так» — у [2-biznes-logika.md](2-biznes-logika.md).
+Деталі «чому саме так» — у [1-biznes-logika.md](1-biznes-logika.md).
 
 ---
 
