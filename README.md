@@ -76,7 +76,7 @@ npm test                    # перевірка сайту
 - GitHub Actions: ≈ 20 хв × 22 робочі дні ≈ 450 хв на місяць.
 - Python 3.12, Node 22. Версії бібліотек зафіксовані: `requirements.txt`, `site/package-lock.json`.
 
-### Варіант A — корпоративний GitHub (рекомендовано, ≈ 1–2 год)
+### Варіант A — корпоративний GitHub (рекомендовано)
 
 1. Створити репозиторій в організації і залити поточні файли — без історії особистого репозиторію.
 2. **Settings → Secrets and variables → Actions:** секрет `LLM_API_KEY` (корпоративний ключ). За потреби змінні (Variables): `LLM_PROVIDER`, `LLM_MODEL`, `AZURE_OPENAI_ENDPOINT`.
