@@ -26,7 +26,7 @@ jobs:
     env:
       PYTHONUNBUFFERED: "1"
       LLM_PROVIDER: ${{ vars.LLM_PROVIDER || 'anthropic' }}
-      LLM_MODEL: ${{ vars.LLM_MODEL || 'claude-haiku-4-5' }}
+      LLM_MODEL: ${{ vars.LLM_MODEL || 'claude-haiku-5-5' }}
       LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
       AZURE_OPENAI_ENDPOINT: ${{ vars.AZURE_OPENAI_ENDPOINT }}
     steps:

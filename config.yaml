@@ -11,8 +11,8 @@ collect:
 
 # ---------------------------------------------------------------- AI-класифікація
 classify:
-  min_score: 4                # у дайджест потрапляють новини з оцінкою >= min_score
-  pass1_threshold: 4          # оцінка за заголовком >= N → детальний розбір (2-й етап)
+  min_score: 3                # у дайджест потрапляють новини з оцінкою >= min_score (поріг підібрано під модель claude-haiku-5-5)
+  pass1_threshold: 3          # оцінка за заголовком >= N → детальний розбір (2-й етап)
   pass1_batch_size: 50
   pass2_batch_size: 16
   blocked_title_prefixes: ["morning bid:", "evening bid:", "reuters morning bid"]
@@ -94,6 +94,9 @@ today:
 llm:
   timeout_seconds: 180
   pause_between_calls: 0.3
+  effort: low                 # глибина роздумів моделі: low | medium | high; "" — не задавати.
+                              # Лише для моделей, що «думають» перед відповіддю (Claude Haiku 5.5 і новіші);
+                              # для claude-haiku-4-5 залишати порожнім.
 
 # ---------------------------------------------------------------- публікація
 publish:

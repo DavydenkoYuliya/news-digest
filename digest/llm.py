@@ -11,6 +11,9 @@ import time
 from .log import log
 
 
+THINKING_HEADROOM = 4000  # токенів на роздуми моделі понад ліміт відповіді (лише коли задано effort)
+
+
 class LLMError(Exception):
     pass
 
@@ -47,6 +50,7 @@ class LLM:
         self.provider = c["provider"]
         self.model = c["model"]
         self.pause = float(c.get("pause_between_calls", 0))
+        self.effort = str(c.get("effort") or "").strip()
         self.usage = Usage()
         timeout = float(c.get("timeout_seconds", 180))
         key = c["api_key"]
@@ -102,10 +106,17 @@ class LLM:
     # ------------------------------------------------------------------ providers
     def _call(self, system, prompt, max_tokens, schema):
         if self.provider == "anthropic":
+            output_config = {}
+            if schema:
+                output_config["format"] = {"type": "json_schema", "schema": schema}
+            if self.effort:
+                # роздуми моделі входять у ліміт відповіді — даємо їм окремий запас
+                output_config["effort"] = self.effort
+                max_tokens += THINKING_HEADROOM
             kwargs = dict(model=self.model, max_tokens=max_tokens, system=system,
                           messages=[{"role": "user", "content": prompt}])
-            if schema:
-                kwargs["output_config"] = {"format": {"type": "json_schema", "schema": schema}}
+            if output_config:
+                kwargs["output_config"] = output_config
             resp = self.client.messages.create(**kwargs)
             self.usage.add(resp.usage.input_tokens, resp.usage.output_tokens)
             if resp.stop_reason == "max_tokens":

@@ -31,7 +31,7 @@ def load(config_path: Path | None = None) -> dict:
     cfg["llm"].update({
         "provider": os.environ.get("LLM_PROVIDER", "anthropic").strip().lower(),
         "api_key": os.environ.get("LLM_API_KEY", "").strip(),
-        "model": os.environ.get("LLM_MODEL", "claude-haiku-4-5").strip(),
+        "model": os.environ.get("LLM_MODEL", "claude-haiku-5-5").strip(),
         "azure_endpoint": os.environ.get("AZURE_OPENAI_ENDPOINT", "").strip(),
         "azure_api_version": os.environ.get("AZURE_OPENAI_API_VERSION", "2024-10-21").strip(),
     })
